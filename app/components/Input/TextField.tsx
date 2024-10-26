@@ -24,13 +24,12 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 
-import { Icon, LibraryTypes } from 'app/components'
+import { Error, Icon, LibraryTypes } from 'app/components'
 import { useAppContext } from 'app/context'
 import { isRTL, translate } from 'app/i18n'
 import { Palette, sizing } from 'app/theme'
 import { isWeb, useDebounce } from 'app/utils'
 
-import { Text } from '../Text'
 import { CustomTextInputRef, TextFieldIconProps, TextFieldProps } from './TextField.type'
 
 const AnimatedTextInput = Animated.createAnimatedComponent(RNTextInput)
@@ -159,6 +158,9 @@ const TextFieldComponent = <L extends LibraryTypes, R extends LibraryTypes>(
     return {
       reset: () => {
         setInputValue('')
+      },
+      setInput: (text: string) => {
+        setInputValue(text)
       },
     }
   })
@@ -399,13 +401,7 @@ const TextFieldComponent = <L extends LibraryTypes, R extends LibraryTypes>(
           </Animated.View>
         ) : null}
       </Animated.View>
-      <View style={[styles.errorView, errorContainerStyle]}>
-        {error ? (
-          <Text preset="small" style={[styles.helperText, errorStyle]}>
-            {error}
-          </Text>
-        ) : null}
-      </View>
+      <Error error={error} errorContainerStyle={errorContainerStyle} errorStyle={errorStyle} />
     </View>
   )
 }
@@ -432,13 +428,6 @@ export { ForwardedTextField as TextField }
 /* eslint-disable react-native/no-unused-styles */
 const inputStyles = ({ background }: Palette) =>
   StyleSheet.create({
-    errorView: {
-      marginHorizontal: sizing.spacing.md,
-      marginTop: sizing.spacing.xxs,
-    },
-    helperText: {
-      fontSize: 14,
-    },
     input: {
       alignSelf: 'flex-start',
       flex: 1,

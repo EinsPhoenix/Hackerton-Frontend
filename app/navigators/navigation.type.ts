@@ -2,6 +2,8 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { CompositeScreenProps, NavigatorScreenParams, RouteProp } from '@react-navigation/native'
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
 
+import { ThreadResult } from 'app/services'
+
 export enum ScreenTypes {
   FORCE_UPDATE_SCREEN = 'forceUpdateScreen',
   NETWORK_CHECK = 'networkCheck',
@@ -15,18 +17,24 @@ export enum ScreenTypes {
   PROFILE = 'profile',
   SUB = 'sub',
   ADD = 'add',
+  THREAD = 'thread',
 }
 
 // Sub NAVIGATOR
 export type SubStackParamList = {
   [ScreenTypes.PROFILE]: undefined
   [ScreenTypes.ADD]: undefined
+  [ScreenTypes.THREAD]: ThreadParams
 }
 
 export type SubStackScreenProps<T extends keyof SubStackParamList> = CompositeScreenProps<
   NativeStackScreenProps<SubStackParamList, T>,
   AppStackScreenProps<keyof AppStackParamList>
 >
+
+export type ThreadParams = {
+  item: ThreadResult
+}
 
 // MAIN NAVIGATOR
 export type MainTabParamList = {
@@ -40,10 +48,6 @@ export type MainTabScreenProps<T extends keyof MainTabParamList> = CompositeScre
   BottomTabScreenProps<MainTabParamList, T>,
   AppStackScreenProps<keyof AppStackParamList>
 >
-
-export type LibraryParams = {
-  item: null
-}
 
 // APP NAVIGATOR
 export type AppStackParamList = {

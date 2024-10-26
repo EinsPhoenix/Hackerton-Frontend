@@ -2,12 +2,15 @@ import { convertToFormData } from 'app/utils'
 
 import {
   AddThreadParams,
+  ContentGeneratedResult,
   GoogleLoginParams,
   LoginParams,
   LoginResult,
   PreferencesParams,
   SignupParams,
   SignupResult,
+  TagGeneratedResult,
+  ThreadGenerateParams,
   ThreadParams,
   ThreadResult,
   UserDataParams,
@@ -16,8 +19,10 @@ import {
 } from '../models'
 import { API_METHODS } from './apiMethods.type'
 import type {
+  ContentGeneratedResponseDTO,
   LoginResponseDTO,
   SignupResponseDTO,
+  TagGeneratedResponseDTO,
   ThreadResponseDTO,
   ThreadSearchResponseDTO,
   UserDataResponseDTO,
@@ -125,8 +130,8 @@ export class AppServices {
   postThread = async (threadParams: AddThreadParams): Promise<ThreadResult> => {
     return new Promise((resolve, reject) => {
       serviceAdapter<ThreadResponseDTO, FormData>(
-        API_METHODS.GET,
-        END_POINTS.THREADS,
+        API_METHODS.POST,
+        END_POINTS.NEW_THREAD,
         convertToFormData(threadParams),
       )
         .then(res => {
@@ -145,6 +150,36 @@ export class AppServices {
       )
         .then(res => {
           resolve(new UserDataResponseAdapter().service(res))
+        })
+        .catch(reject)
+    })
+  }
+
+  getAIContent = async (
+    threadGenerateParams: ThreadGenerateParams,
+  ): Promise<ContentGeneratedResult> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<ContentGeneratedResponseDTO, ThreadGenerateParams>(
+        API_METHODS.POST,
+        `${END_POINTS.AI_CONTENT}/${threadGenerateParams.language_code}`,
+        threadGenerateParams,
+      )
+        .then(res => {
+          resolve(new ThreadResponseAdapter().serviceGeneratedContent(res))
+        })
+        .catch(reject)
+    })
+  }
+
+  getAITags = async (threadGenerateParams: ThreadGenerateParams): Promise<TagGeneratedResult> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<TagGeneratedResponseDTO, ThreadGenerateParams>(
+        API_METHODS.POST,
+        END_POINTS.AI_TAGS,
+        threadGenerateParams,
+      )
+        .then(res => {
+          resolve(new ThreadResponseAdapter().serviceGeneratedTags(res))
         })
         .catch(reject)
     })

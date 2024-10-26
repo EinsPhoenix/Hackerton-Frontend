@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Animated, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
+import { Animated, DimensionValue, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 
 import { Easing } from 'react-native-reanimated'
 
@@ -93,8 +93,8 @@ function generateSimilarColors(hexColor: string) {
 }
 
 export interface LoadingAnimationProps {
-  loading: boolean
-  position?: number
+  loading?: boolean
+  position?: DimensionValue
   thickness?: number
 }
 

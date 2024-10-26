@@ -5,10 +5,10 @@ import { translate, TxKeyPath } from 'app/i18n'
 
 export const showErrorToast = (
   messageHead: TxKeyPath,
-  error: any,
+  error?: any,
   headOptions?: TranslateOptions,
 ) => {
-  const errorMsg = error?.message || translate('error.unexpected')
+  const errorMsg = error && (error?.message || translate('error.unexpected'))
   Toast.show({ text1: translate(messageHead, headOptions), text2: errorMsg, type: 'error' })
 }
 

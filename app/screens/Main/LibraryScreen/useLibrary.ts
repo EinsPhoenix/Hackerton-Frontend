@@ -20,6 +20,7 @@ const useLibrary = () => {
   useHeader(
     {
       leftTx: 'screens.library',
+      loading: isLoading,
       onRightPress: goAddThread,
       rightIcon: 'add',
       rightIconLibrary: 'Ionicons',
@@ -32,7 +33,6 @@ const useLibrary = () => {
   }, [getUserRelatedData])
 
   return {
-    isLoading,
     styles: libraryStyles(colors),
     userData,
   }

@@ -29,6 +29,11 @@ export function SubNavigator() {
         component={Screens.AddScreen}
         options={{ title: translate('screens.add') }}
       />
+      <Stack.Screen
+        name={ScreenTypes.THREAD}
+        component={Screens.ThreadScreen}
+        options={{ title: translate('screens.thread') }}
+      />
     </Stack.Navigator>
   )
 }

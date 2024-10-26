@@ -2,7 +2,7 @@ import React from 'react'
 
 import { observer } from 'mobx-react-lite'
 
-import { EmptyState, ListView, LoadingAnimation, Screen, TextField } from 'app/components'
+import { EmptyState, ListView, Screen, TextField } from 'app/components'
 import type { MainTabScreenProps, ScreenTypes } from 'app/navigators'
 import { ThreadResult } from 'app/services'
 import { useRenderCount } from 'app/utils'
@@ -17,7 +17,6 @@ export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observ
     colors,
     handleRefetch,
     handleScroll,
-    isLoading,
     searchFieldRef,
     searchThreads,
     styles,
@@ -31,7 +30,6 @@ export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observ
       contentContainerStyle={styles.container}
       preset="auto"
       safeAreaEdges={['top', 'bottom']}>
-      <LoadingAnimation loading={isLoading} />
       <TextField
         ref={searchFieldRef}
         style={styles.input}

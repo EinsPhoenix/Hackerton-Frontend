@@ -1,6 +1,6 @@
 import { useStores } from 'app/models'
 import { AppNavigationProp, useWithNavigation, WithNavigation } from 'app/navigators'
-import { appServices } from 'app/services'
+import { appServices, pickImage, takePhoto } from 'app/services'
 
 import { useLanguage } from './LocalizationContext'
 import { useColor } from './ThemeContext'
@@ -14,7 +14,9 @@ export const useAppContextOnly = () => {
     ...stores,
     ...color,
     ...language,
+    pickImage,
     services: appServices,
+    takePhoto,
   }
 }
 

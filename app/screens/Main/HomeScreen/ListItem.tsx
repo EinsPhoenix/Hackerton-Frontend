@@ -13,9 +13,10 @@ import {
 import { LinearGradient } from 'expo-linear-gradient'
 
 import { Icon, Image, Text } from 'app/components'
+import { navigate, ScreenTypes } from 'app/navigators'
 import { ThreadResult, VotingParams } from 'app/services'
 import { Palette, shadows, sizing } from 'app/theme'
-import { logger, shortenText, showSuccessToast } from 'app/utils'
+import { shortenText, showSuccessToast } from 'app/utils'
 
 interface ListItemProps {
   colors: Palette
@@ -36,6 +37,19 @@ const ListItem = ({ colors, item, updateVoting }: ListItemProps) => {
     }).start(() => setIsSwiped(false)) // Reset swipe state after the animation completes
   }
 
+  const voteAction = (state: -1 | 1) => {
+    setVote(prev => {
+      if (prev !== state) {
+        const header = state === 1 ? 'success.like' : 'success.dislike'
+        showSuccessToast(header, undefined, {
+          threadTitle: shortenText(item.titel, 20),
+        })
+      }
+
+      return prev === state ? 0 : state
+    })
+  }
+
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (_, gestureState) => {
@@ -53,16 +67,10 @@ const ListItem = ({ colors, item, updateVoting }: ListItemProps) => {
         }
 
         if (gestureState.dx > sizing.threshold.normal) {
-          showSuccessToast('success.dislike', undefined, {
-            threadTitle: shortenText(item.titel, 20),
-          })
-          setVote(-1)
+          voteAction(-1)
           updateVoting({ ...votingParams, upvoteType: 'downvote' })
         } else if (gestureState.dx < -sizing.threshold.normal) {
-          showSuccessToast('success.like', undefined, {
-            threadTitle: shortenText(item.titel, 20),
-          })
-          setVote(1)
+          voteAction(1)
           updateVoting({ ...votingParams, upvoteType: 'upvote' })
         }
 
@@ -76,7 +84,7 @@ const ListItem = ({ colors, item, updateVoting }: ListItemProps) => {
 
   const goThread = () => {
     if (!isSwiped) {
-      logger.log(item.id_thread)
+      navigate(ScreenTypes.SUB, { screen: ScreenTypes.THREAD })
     }
   }
 

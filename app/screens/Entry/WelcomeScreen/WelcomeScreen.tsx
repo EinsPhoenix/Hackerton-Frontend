@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { Images } from 'assets/images'
 import { observer } from 'mobx-react-lite'
 
-import { Button, Image, LoadingAnimation, Screen, Text } from 'app/components'
+import { Button, Image, Screen, Text } from 'app/components'
 import { type AppStackScreenProps, ScreenTypes } from 'app/navigators'
 import PreferencesList from 'app/screens/Entry/WelcomeScreen/PreferencesList'
 import { useRenderCount } from 'app/utils'
@@ -13,7 +13,7 @@ import useWelcome from './useWelcome'
 
 export const WelcomeScreen: React.FC<AppStackScreenProps<ScreenTypes.WELCOME>> = observer(
   function Welcome(_props) {
-    const { goNext, isLoading, prefs, setPrefs, styles } = useWelcome()
+    const { goNext, prefs, setPrefs, styles } = useWelcome()
     useRenderCount('WelcomeScreen')
 
     return (
@@ -21,7 +21,6 @@ export const WelcomeScreen: React.FC<AppStackScreenProps<ScreenTypes.WELCOME>> =
         contentContainerStyle={styles.container}
         preset="auto"
         safeAreaEdges={['top', 'bottom']}>
-        <LoadingAnimation loading={isLoading} />
         <View style={styles.topContainer}>
           <Image
             containerStyle={styles.imgContainer}

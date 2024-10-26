@@ -14,7 +14,7 @@ const useHome = () => {
     authenticationStore: { jwtClaims },
     colors,
     navigation,
-    threadStore: { getThreads, isLoading, searchThreads, threads, updateVoting },
+    threadStore: { getThreads, isLoading, searchThreads, setLoading, threads, updateVoting },
   } = useAppContext()
 
   const searchFieldRef = useRef<CustomTextInputRef | null>(null)
@@ -45,6 +45,7 @@ const useHome = () => {
     {
       leftTextSub: jwtClaims?.username,
       leftTx: greetingKey,
+      loading: isLoading,
       onRightPress: goProfile,
       rightIcon: 'user',
       rightIconLibrary: 'AntDesign',
@@ -55,6 +56,10 @@ const useHome = () => {
   useEffect(() => {
     getThreads().then()
   }, [getThreads])
+
+  useEffect(() => {
+    setLoading(false)
+  }, [])
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const contentHeight = event.nativeEvent.contentSize.height
@@ -70,7 +75,6 @@ const useHome = () => {
     colors,
     handleRefetch,
     handleScroll,
-    isLoading,
     searchFieldRef,
     searchThreads,
     styles: homeStyles(colors),

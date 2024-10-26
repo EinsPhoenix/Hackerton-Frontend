@@ -13,4 +13,5 @@ export enum Icons {
   VIEW = require('./view.png'),
   X = require('./x.png'),
   GOOGLE = require('./google.png'),
+  AI = require('./ai.png'),
 }

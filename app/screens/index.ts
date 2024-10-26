@@ -8,6 +8,7 @@ export * from './Main/SettingScreen/SettingScreen'
 
 export * from './Sub/ProfileScreen/ProfileScreen'
 export * from './Sub/AddScreen/AddScreen'
+export * from './Sub/ThreadScreen/ThreadScreen'
 
 export * from './Diagnostic/NetworkLoggerScreen/NetworkLoggerScreen'
 export * from './Diagnostic/ErrorScreen/ErrorBoundary'

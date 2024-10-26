@@ -31,7 +31,9 @@ const en = {
   },
   common: {
     add: 'Add',
+    choose: 'Choose',
     continue: 'Weiter',
+    generate: 'Generate',
     interrupt: 'Abbrechen',
   },
   emptyState: {
@@ -43,14 +45,24 @@ const en = {
     },
   },
   error: {
+    ai: {
+      content: 'Error while getting AI-Generated content',
+      requiredForContent: 'You must have content and title filled out',
+      requiredForTags: 'You must have content and title filled out',
+      tags: 'Error while getting AI-Generated tags',
+    },
     expired: 'Your session is expired, you need to login again',
     internetConnection: 'Internet connection problems',
     jwt: 'Error while loading user data',
     login: 'Error while logging in',
     open: 'Error while opening',
+    permission: {
+      pickPhoto: 'Permission to access the camera roll is required!',
+      takePhoto: 'Permission to access the camera is required!',
+    },
     preferences: 'Error while setting up preferences',
     signup: 'Error while signing up',
-    threads: 'Error while getting threads',
+    threads: 'Error while getting/sending threads',
     unexpected: 'Unexpected error',
     userData: 'Error while getting own data',
     voting: 'Error while changing upvotes',
@@ -74,16 +86,21 @@ const en = {
   info: {},
   screen: {
     add: {
+      image: 'Select image ...',
       label: {
         content: 'Content',
         contentSummary: 'Summarized Content',
         title: 'Title',
       },
+      mainTag: 'Main Tag',
       placeholder: {
         content: 'Enter content',
         contentSummary: 'Enter summarized content',
         title: 'Enter title',
       },
+      subTagInfo: 'A maximum of three sub tags can be added',
+      subTags: 'Sub Tags',
+      subTagsAI: 'AI-Generated Tags',
     },
     setting: {
       changeColorMode: 'Change Color Theme',
@@ -108,6 +125,7 @@ const en = {
     profile: 'Profile',
     setting: 'Settings',
     signup: 'Sign Up',
+    thread: 'Thread',
     welcome: 'Welcome',
   },
   search: {
@@ -128,8 +146,15 @@ const en = {
   success: {
     dislike: '{{threadTitle}} was downvoted!',
     like: '{{threadTitle}} was upvoted!',
+    threadAdd: '{{threadTitle}} was successfully created!',
   },
   validation: {
+    content: {
+      required: 'Content is required',
+    },
+    contentSummary: {
+      required: 'Summarized content is required',
+    },
     email: {
       pattern: 'Invalid email format',
       required: 'Email is required',
@@ -145,6 +170,9 @@ const en = {
       required: 'Password is required',
       special: 'Password must contain at least one special character',
       uppercase: 'Password must contain at least one uppercase letter',
+    },
+    titel: {
+      required: 'Titel is required',
     },
     username: {
       invalidChars: 'Username can only contain letters, numbers,._- characters',

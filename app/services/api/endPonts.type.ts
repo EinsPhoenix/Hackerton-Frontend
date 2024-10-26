@@ -6,5 +6,7 @@ export enum END_POINTS {
   THREADS = '/Texts',
   SEARCH_THREADS = '/Search',
   UPVOTE = '/Upvote',
+  AI_CONTENT = '/Ai/Summarize',
+  AI_TAGS = '/Ai/GenerateTags',
   NEW_THREAD = '/AddNewText',
 }
