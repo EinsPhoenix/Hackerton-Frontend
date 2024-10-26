@@ -1,6 +1,6 @@
 import { Instance, SnapshotOut, types } from 'mobx-state-tree'
 
-import { appServices, ThreadResult } from 'app/services'
+import { appServices, ThreadResult, VotingParams } from 'app/services'
 import { showErrorToast } from 'app/utils'
 
 export const ThreadStoreModel = types
@@ -55,6 +55,13 @@ export const ThreadStoreModel = types
       }
 
       store.threadList = threadList
+    },
+    async updateVoting(votingParams: VotingParams) {
+      try {
+        await appServices.updateVoting(votingParams)
+      } catch (error: any) {
+        showErrorToast('error.voting', error)
+      }
     },
   }))
 

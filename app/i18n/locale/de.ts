@@ -53,6 +53,7 @@ const de = {
     threads: 'Fehler beim erhalten der Threads',
     unexpected: 'Unbekannter Fehler',
     userData: 'Fehler beim erhalten der eigenen Daten',
+    voting: 'Fehler beim updaten der Upvotes',
   },
   errorScreen: {
     friendlySubtitle: 'Ein Fehler ist aufgetreten.',
@@ -112,6 +113,10 @@ const de = {
   search: {
     label: 'Suche',
     placeholder: 'Nach was suchen Sie?',
+  },
+  success: {
+    dislike: '{{threadTitle}} wurde gedownvoted!',
+    like: '{{threadTitle}} wurde geupvoted!',
   },
   validation: {
     email: {

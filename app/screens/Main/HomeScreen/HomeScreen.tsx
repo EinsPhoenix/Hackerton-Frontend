@@ -22,6 +22,7 @@ export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observ
     searchThreads,
     styles,
     threads,
+    updateVoting,
   } = useHome()
   useRenderCount('HomeScreen')
 
@@ -55,7 +56,7 @@ export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observ
           onScroll={handleScroll}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }: { item: ThreadResult }) => (
-            <ListItem colors={colors} item={item} />
+            <ListItem colors={colors} item={item} updateVoting={updateVoting} />
           )}
           data={threads}
           estimatedItemSize={136}

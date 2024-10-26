@@ -12,6 +12,7 @@ import {
   ThreadResult,
   UserDataParams,
   UserDataResult,
+  VotingParams,
 } from '../models'
 import { API_METHODS } from './apiMethods.type'
 import type {
@@ -109,6 +110,14 @@ export class AppServices {
         .then(res => {
           resolve(new ThreadResponseAdapter().serviceSearch(res))
         })
+        .catch(reject)
+    })
+  }
+
+  updateVoting = async (votingParams: VotingParams): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<void, VotingParams>(API_METHODS.POST, END_POINTS.UPVOTE, votingParams)
+        .then(resolve)
         .catch(reject)
     })
   }

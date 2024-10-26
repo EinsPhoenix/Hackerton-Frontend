@@ -5,5 +5,6 @@ export enum END_POINTS {
   PREFERENCES = '/Ai/WeightPrefs',
   THREADS = '/Texts',
   SEARCH_THREADS = '/Search',
+  UPVOTE = '/Upvote',
   NEW_THREAD = '/AddNewText',
 }

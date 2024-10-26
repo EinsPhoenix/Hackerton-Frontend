@@ -13,6 +13,12 @@ export interface ThreadParams {
   filters?: { user: boolean; tags: boolean; threads: boolean; comments: boolean }
 }
 
+export interface VotingParams {
+  voteable: string
+  voteable_id: number
+  upvoteType: string
+}
+
 export interface AddThreadParams {
   titel: string
   content: string

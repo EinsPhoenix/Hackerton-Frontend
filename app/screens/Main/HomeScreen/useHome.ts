@@ -14,7 +14,7 @@ const useHome = () => {
     authenticationStore: { jwtClaims },
     colors,
     navigation,
-    threadStore: { getThreads, isLoading, searchThreads, threads },
+    threadStore: { getThreads, isLoading, searchThreads, threads, updateVoting },
   } = useAppContext()
 
   const searchFieldRef = useRef<CustomTextInputRef | null>(null)
@@ -75,6 +75,7 @@ const useHome = () => {
     searchThreads,
     styles: homeStyles(colors),
     threads,
+    updateVoting,
   }
 }
 

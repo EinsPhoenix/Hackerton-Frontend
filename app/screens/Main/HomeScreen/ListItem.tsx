@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   Animated,
   PanResponder,
@@ -13,19 +13,27 @@ import {
 import { LinearGradient } from 'expo-linear-gradient'
 
 import { Icon, Image, Text } from 'app/components'
-import { ThreadResult } from 'app/services'
+import { ThreadResult, VotingParams } from 'app/services'
 import { Palette, shadows, sizing } from 'app/theme'
-import { logger } from 'app/utils'
+import { logger, shortenText, showSuccessToast } from 'app/utils'
 
-const ListItem = ({ colors, item }: { colors: Palette; item: ThreadResult }) => {
+interface ListItemProps {
+  colors: Palette
+  item: ThreadResult
+  updateVoting: (votingParams: VotingParams) => void
+}
+
+const ListItem = ({ colors, item, updateVoting }: ListItemProps) => {
   const dragX = useRef(new Animated.Value(0)).current
+  const [isSwiped, setIsSwiped] = useState(false)
+  const [vote, setVote] = useState(0)
   const styles = listItemStyles()
 
   const resetDrag = () => {
     Animated.spring(dragX, {
       toValue: 0,
       useNativeDriver: true,
-    }).start()
+    }).start(() => setIsSwiped(false)) // Reset swipe state after the animation completes
   }
 
   const panResponder = useRef(
@@ -37,11 +45,25 @@ const ListItem = ({ colors, item }: { colors: Palette; item: ThreadResult }) => 
         dragX.setValue(gestureState.dx)
       },
       onPanResponderRelease: (__event, gestureState) => {
-        if (gestureState.dx > sizing.threshold.normal) {
-          logger.log('dislike action')
+        setIsSwiped(true)
+
+        const votingParams = {
+          voteable: 'thread',
+          voteable_id: item.id_thread,
         }
-        if (gestureState.dx < -sizing.threshold.normal) {
-          logger.log('like action')
+
+        if (gestureState.dx > sizing.threshold.normal) {
+          showSuccessToast('success.dislike', undefined, {
+            threadTitle: shortenText(item.titel, 20),
+          })
+          setVote(-1)
+          updateVoting({ ...votingParams, upvoteType: 'downvote' })
+        } else if (gestureState.dx < -sizing.threshold.normal) {
+          showSuccessToast('success.like', undefined, {
+            threadTitle: shortenText(item.titel, 20),
+          })
+          setVote(1)
+          updateVoting({ ...votingParams, upvoteType: 'upvote' })
         }
 
         resetDrag()
@@ -53,7 +75,9 @@ const ListItem = ({ colors, item }: { colors: Palette; item: ThreadResult }) => 
   ).current
 
   const goThread = () => {
-    logger.log(item.id_thread)
+    if (!isSwiped) {
+      logger.log(item.id_thread)
+    }
   }
 
   return (
@@ -87,7 +111,7 @@ const ListItem = ({ colors, item }: { colors: Palette; item: ThreadResult }) => 
               <Text preset="h5">{item.created_by}</Text>
               <Text preset="h5" text="•" />
               <Text preset="h5" textAlign="right" color={colors.accent}>
-                {item.upvotes}
+                {item.upvotes + vote}
               </Text>
               <Icon icon="arrowup" library="AntDesign" color={colors.accent} />
             </View>

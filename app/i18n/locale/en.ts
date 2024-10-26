@@ -53,6 +53,7 @@ const en = {
     threads: 'Error while getting threads',
     unexpected: 'Unexpected error',
     userData: 'Error while getting own data',
+    voting: 'Error while changing upvotes',
   },
   errorScreen: {
     friendlySubtitle: 'An error occurred.',
@@ -123,6 +124,10 @@ const en = {
     permissionInfo: 'If the permission has already been granted, this button has no function.',
     settings: 'Settings',
     theme: 'Theme',
+  },
+  success: {
+    dislike: '{{threadTitle}} was downvoted!',
+    like: '{{threadTitle}} was upvoted!',
   },
   validation: {
     email: {
