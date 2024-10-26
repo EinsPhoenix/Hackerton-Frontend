@@ -1,0 +1,54 @@
+import React from 'react'
+
+import { observer } from 'mobx-react-lite'
+
+import { EmptyState, ListView, LoadingAnimation, Screen, TextField } from 'app/components'
+import type { MainTabScreenProps, ScreenTypes } from 'app/navigators'
+import { ThreadResult } from 'app/services'
+import { useRenderCount } from 'app/utils'
+
+import ListItem from './ListItem'
+import useHome from './useHome'
+
+export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observer(function Home(
+  _props,
+) {
+  const { colors, getThreads, handleRefetch, isLoading, styles, threads } = useHome()
+  useRenderCount('HomeScreen')
+
+  return (
+    <Screen
+      contentContainerStyle={styles.container}
+      preset="auto"
+      safeAreaEdges={['top', 'bottom']}>
+      <LoadingAnimation loading={isLoading} />
+      <TextField
+        style={styles.input}
+        variant="filled"
+        leftIcon="search1"
+        leftIconLibrary="AntDesign"
+        placeholderTx="search.placeholder"
+        labelTx="search.label"
+        debounceDelay={300}
+        onChangeTextDebounce={text => getThreads(text)}
+      />
+      {!threads?.length || threads?.length === 0 ? (
+        <EmptyState
+          preset="generic"
+          imageStyle={styles.imgNoContent}
+          ImageProps={{ containerStyle: styles.imgNoContentContainer }}
+          buttonOnPress={handleRefetch}
+        />
+      ) : (
+        <ListView
+          contentContainerStyle={styles.list}
+          renderItem={({ item }: { item: ThreadResult }) => (
+            <ListItem colors={colors} item={item} />
+          )}
+          data={threads}
+          estimatedItemSize={136}
+        />
+      )}
+    </Screen>
+  )
+})
