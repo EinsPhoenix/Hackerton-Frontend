@@ -31,8 +31,8 @@ const en = {
   },
   common: {
     add: 'Add',
-    continue: 'Weiter',
-    interrupt: 'Abbrechen',
+    continue: 'Continue',
+    interrupt: 'Cancel',
   },
   emptyState: {
     genericContent: 'Unfortunately no content was found.',
@@ -114,21 +114,10 @@ const en = {
     label: 'Search',
     placeholder: 'What would you like to search?',
   },
-  setting: {
-    backgroundVideo: 'Background Video',
-    callPermission: 'Call Permission',
-    changeBackgroundVideo: 'Change Background Video',
-    changeColorMode: 'Change Color Mode',
-    languages: 'Languages',
-    notification: 'Notifications',
-    permissionInfo: 'If the permission has already been granted, this button has no function.',
-    settings: 'Settings',
-    theme: 'Theme',
-  },
   validation: {
     email: {
       pattern: 'Invalid email format',
-      required: 'Email is required',
+      required: 'An Email is required',
     },
     emailOrUsername: {
       required: 'email/username is required',

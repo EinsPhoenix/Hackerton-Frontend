@@ -48,7 +48,7 @@ const de = {
     jwt: 'Fehler beim laden der Nutzerdaten',
     login: 'Fehler beim einloggen',
     open: 'Fehler beim öffnen',
-    preferences: 'Fehler beim festlegen der Preferenzen',
+    preferences: 'Fehler beim festlegen der Präferenzen',
     signup: 'Fehler beim Registrieren',
     threads: 'Fehler beim erhalten der Threads',
     unexpected: 'Unbekannter Fehler',
@@ -95,7 +95,7 @@ const de = {
     welcome: {
       exciting: '(ohh, das ist aufregend!)',
       letsGo: "Los geht's!",
-      postscript: 'Wähle einige Preferenzen, um loszulegen!',
+      postscript: 'Wähle einige Präferenzen, um loszulegen!',
       readyForLaunch: 'Deine App ist fast bereit für den Start!',
     },
   },
@@ -117,7 +117,7 @@ const de = {
   validation: {
     email: {
       pattern: 'Ungültige E-Mail-Adresse.',
-      required: 'Eine E-Mail ist erforderlich.',
+      required: 'Eine E-Mail-Adresse ist erforderlich.',
     },
     emailOrUsername: {
       required: 'Eine E-Mail oder ein Benutzername sind erforderlich',
@@ -133,7 +133,7 @@ const de = {
     },
     username: {
       invalidChars: 'Der Benutzername darf nur Buchstaben, Zahlen,._- enthalten.',
-      required: 'Ein Benutzername ist erforderlich.',
+      required: 'Es ist ein Benutzername erforderlich.',
     },
   },
 }
