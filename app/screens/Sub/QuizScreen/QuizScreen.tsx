@@ -18,6 +18,7 @@ export const QuizScreen: React.FC<SubStackScreenProps<ScreenTypes.QUIZ>> = obser
     handleInputChange,
     handleNext,
     handlePrevious,
+    inputRef,
     question,
     questionAmount,
     scrollViewRef,
@@ -53,6 +54,7 @@ export const QuizScreen: React.FC<SubStackScreenProps<ScreenTypes.QUIZ>> = obser
         </Text>
       </View>
       <TextField
+        ref={inputRef}
         variant="filled"
         placeholderTx="screen.quiz.placeholder"
         labelTx="screen.quiz.label"
