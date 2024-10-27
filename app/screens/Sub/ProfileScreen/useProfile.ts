@@ -9,6 +9,7 @@ const useHome = () => {
   } = useAppContext()
 
   return {
+    colors,
     jwtClaims,
     styles: profileStyles(colors),
   }

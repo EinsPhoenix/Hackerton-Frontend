@@ -1,22 +1,33 @@
-import { ConfigContext, ExpoConfig } from '@expo/config'
+import { ConfigContext, ExpoConfig } from 'expo/config';
 
-/**
- * Use ts-node here so we can use TypeScript for our Config Plugins
- * and not have to compile them to JavaScript
- */
-require('ts-node/register')
-
-/**
- * @param config ExpoConfig coming from the static config app.json if it exists
- *
- * You can read more about Expo's Configuration Resolution Rules here:
- * https://docs.expo.dev/workflow/configuration/#configuration-resolution-rules
- */
-module.exports = ({ config }: ConfigContext): Partial<ExpoConfig> => {
-  const existingPlugins = config.plugins ?? []
-
-  return {
-    ...config,
-    plugins: [...existingPlugins, require('./plugins/withSplashScreen').withSplashScreen],
-  }
-}
+export default ({ config }: ConfigContext): ExpoConfig => ({
+  ...config,
+  name: "YourAppName",
+  slug: "your-app-slug",
+  version: "1.0.0",
+  orientation: "portrait",
+  icon: "./assets/icon.png",
+  splash: {
+    image: "./assets/splash.png",
+    resizeMode: "contain",
+    backgroundColor: "#ffffff",
+  },
+  updates: {
+    fallbackToCacheTimeout: 0,
+  },
+  assetBundlePatterns: [
+    "**/*",
+  ],
+  android: {
+    package: "com.yourapp.package",
+  },
+  ios: {
+    supportsTablet: true,
+  },
+  web: {
+    favicon: "./assets/favicon.png",
+  },
+  plugins: [
+    "expo-splash-screen"
+  ],
+});
