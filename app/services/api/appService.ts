@@ -2,28 +2,45 @@ import { convertToFormData } from 'app/utils'
 
 import {
   AddThreadParams,
+  CheckParams,
+  ContentGeneratedResult,
   GoogleLoginParams,
   LoginParams,
   LoginResult,
   PreferencesParams,
+  PreferencesResult,
+  QuizParams,
+  QuizResult,
   SignupParams,
   SignupResult,
+  SolutionsResult,
+  TagGeneratedResult,
+  ThreadGenerateParams,
+  ThreadInfoParams,
   ThreadParams,
   ThreadResult,
   UserDataParams,
   UserDataResult,
+  VotingParams,
+  WeightedPreferencesParams,
 } from '../models'
 import { API_METHODS } from './apiMethods.type'
 import type {
+  ContentGeneratedResponseDTO,
   LoginResponseDTO,
+  PreferencesResponseDTO,
+  QuizResponseDTO,
   SignupResponseDTO,
+  TagGeneratedResponseDTO,
   ThreadResponseDTO,
   ThreadSearchResponseDTO,
   UserDataResponseDTO,
 } from './dtos'
+import { SolutionsResponseDTO } from './dtos'
 import { END_POINTS } from './endPonts.type'
 import {
   LoginResponseAdapter,
+  QuizResponseAdapter,
   SignupResponseAdapter,
   ThreadResponseAdapter,
   UserDataResponseAdapter,
@@ -113,11 +130,19 @@ export class AppServices {
     })
   }
 
+  updateVoting = async (votingParams: VotingParams): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<void, VotingParams>(API_METHODS.POST, END_POINTS.UPVOTE, votingParams)
+        .then(resolve)
+        .catch(reject)
+    })
+  }
+
   postThread = async (threadParams: AddThreadParams): Promise<ThreadResult> => {
     return new Promise((resolve, reject) => {
       serviceAdapter<ThreadResponseDTO, FormData>(
-        API_METHODS.GET,
-        END_POINTS.THREADS,
+        API_METHODS.POST,
+        END_POINTS.NEW_THREAD,
         convertToFormData(threadParams),
       )
         .then(res => {
@@ -130,12 +155,98 @@ export class AppServices {
   getUserData = async (userDataParams: UserDataParams): Promise<UserDataResult> => {
     return new Promise((resolve, reject) => {
       serviceAdapter<UserDataResponseDTO, UserDataParams>(
-        API_METHODS.GET,
-        END_POINTS.THREADS,
+        API_METHODS.POST,
+        END_POINTS.USER_DATA,
         userDataParams,
       )
         .then(res => {
           resolve(new UserDataResponseAdapter().service(res))
+        })
+        .catch(reject)
+    })
+  }
+
+  getAIContent = async (
+    threadGenerateParams: ThreadGenerateParams,
+  ): Promise<ContentGeneratedResult> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<ContentGeneratedResponseDTO, ThreadGenerateParams>(
+        API_METHODS.POST,
+        `${END_POINTS.AI_CONTENT}/${threadGenerateParams.language_code}`,
+        threadGenerateParams,
+      )
+        .then(res => {
+          resolve(new ThreadResponseAdapter().serviceGeneratedContent(res))
+        })
+        .catch(reject)
+    })
+  }
+
+  getAITags = async (threadGenerateParams: ThreadGenerateParams): Promise<TagGeneratedResult> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<TagGeneratedResponseDTO, ThreadGenerateParams>(
+        API_METHODS.POST,
+        END_POINTS.AI_TAGS,
+        threadGenerateParams,
+      )
+        .then(res => {
+          resolve(new ThreadResponseAdapter().serviceGeneratedTags(res))
+        })
+        .catch(reject)
+    })
+  }
+
+  postThreadInfo = async (threadInfoParams: ThreadInfoParams): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<void, ThreadInfoParams>(
+        API_METHODS.POST,
+        END_POINTS.THREAD_INFO,
+        threadInfoParams,
+      )
+        .then(resolve)
+        .catch(reject)
+    })
+  }
+
+  generateQuiz = async (quizParams: QuizParams): Promise<QuizResult> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<QuizResponseDTO, QuizParams>(
+        API_METHODS.GET,
+        `${END_POINTS.GENERATE_QUIZ}/${quizParams.id_thread}/${quizParams.language_code}`,
+        quizParams,
+      )
+        .then(res => {
+          resolve(new QuizResponseAdapter().service(res))
+        })
+        .catch(reject)
+    })
+  }
+
+  postAnswers = async (checkParams: CheckParams): Promise<SolutionsResult> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<SolutionsResponseDTO, CheckParams>(
+        API_METHODS.POST,
+        `${END_POINTS.CHECK_QUIZ}/${checkParams.id_thread}/${checkParams.language_code}`,
+        checkParams,
+      )
+        .then(res => {
+          resolve(new QuizResponseAdapter().serviceSolutions(res))
+        })
+        .catch(reject)
+    })
+  }
+
+  getPreferences = async (
+    weightedPreferencesParams: WeightedPreferencesParams,
+  ): Promise<PreferencesResult[]> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<PreferencesResponseDTO[], WeightedPreferencesParams>(
+        API_METHODS.GET,
+        END_POINTS.PREFERENCES_WEIGHT,
+        weightedPreferencesParams,
+      )
+        .then(res => {
+          resolve(new QuizResponseAdapter().servicePrefs(res))
         })
         .catch(reject)
     })

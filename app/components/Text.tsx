@@ -39,7 +39,7 @@ export const textPresets = {
   } as TextStyle,
   h3: {
     ...BASE_TEXT,
-    fontFamily: typography.font.secondary?.medium || typography.font.primary.semiBold,
+    fontFamily: typography.font.primary.semiBold,
     fontSize: scaledSize(typography.fontSize.xl2),
   } as TextStyle,
   h4: {

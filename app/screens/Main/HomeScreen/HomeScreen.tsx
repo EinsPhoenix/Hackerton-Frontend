@@ -2,12 +2,11 @@ import React from 'react'
 
 import { observer } from 'mobx-react-lite'
 
-import { EmptyState, ListView, LoadingAnimation, Screen, TextField } from 'app/components'
+import { EmptyState, ListItemDetail, ListView, Screen, TextField } from 'app/components'
 import type { MainTabScreenProps, ScreenTypes } from 'app/navigators'
 import { ThreadResult } from 'app/services'
 import { useRenderCount } from 'app/utils'
 
-import ListItem from './ListItem'
 import useHome from './useHome'
 
 export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observer(function Home(
@@ -17,20 +16,19 @@ export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observ
     colors,
     handleRefetch,
     handleScroll,
-    isLoading,
     searchFieldRef,
     searchThreads,
     styles,
     threads,
+    updateVoting,
   } = useHome()
   useRenderCount('HomeScreen')
 
   return (
     <Screen
       contentContainerStyle={styles.container}
-      preset="auto"
+      preset="fixed"
       safeAreaEdges={['top', 'bottom']}>
-      <LoadingAnimation loading={isLoading} />
       <TextField
         ref={searchFieldRef}
         style={styles.input}
@@ -42,7 +40,7 @@ export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observ
         debounceDelay={300}
         onChangeTextDebounce={text => searchThreads(text)}
       />
-      {!threads?.length || threads?.length === 0 ? (
+      {threads?.length === 0 ? (
         <EmptyState
           preset="generic"
           imageStyle={styles.imgNoContent}
@@ -55,11 +53,11 @@ export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observ
           onScroll={handleScroll}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }: { item: ThreadResult }) => (
-            <ListItem colors={colors} item={item} />
+            <ListItemDetail colors={colors} item={item} updateVoting={updateVoting} />
           )}
           data={threads}
           estimatedItemSize={136}
-          scrollEventThrottle={100}
+          scrollEventThrottle={2000}
         />
       )}
     </Screen>

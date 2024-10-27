@@ -29,6 +29,26 @@ export function SubNavigator() {
         component={Screens.AddScreen}
         options={{ title: translate('screens.add') }}
       />
+      <Stack.Screen
+        name={ScreenTypes.THREAD}
+        component={Screens.ThreadScreen}
+        options={{ title: translate('screens.thread') }}
+      />
+      <Stack.Screen
+        name={ScreenTypes.QUIZ_GENERATION}
+        component={Screens.QuizGenerationScreen}
+        options={{ title: translate('screens.quizGeneration') }}
+      />
+      <Stack.Screen
+        name={ScreenTypes.QUIZ}
+        component={Screens.QuizScreen}
+        options={{ title: translate('screens.quiz') }}
+      />
+      <Stack.Screen
+        name={ScreenTypes.RESULT}
+        component={Screens.ResultScreen}
+        options={{ title: translate('screens.result') }}
+      />
     </Stack.Navigator>
   )
 }

@@ -31,28 +31,50 @@ const en = {
   },
   common: {
     add: 'Add',
+    backToStart: 'Back to Home',
+    choose: 'Choose',
     continue: 'Weiter',
+    deleteAcc: 'Delete Account',
+    deleteAskAgain: 'Are you sure you want to delete your account? This action cannot be undone.',
+    finish: 'Finish',
+    generate: 'Generate',
+    generateQuiz: 'Generate Quiz',
+    important: 'Important',
     interrupt: 'Abbrechen',
+    skill: 'Skill',
+    start: 'Start',
   },
   emptyState: {
     genericContent: 'Unfortunately no content was found.',
     libraryContent: 'It’s quite empty here.',
+    somethingWrong: 'Something went wrong...',
     std: {
       button: 'Try again',
       heading: 'No Content',
     },
   },
   error: {
+    ai: {
+      content: 'Error while getting AI-Generated content',
+      requiredForContent: 'You must have content and title filled out',
+      requiredForTags: 'You must have content and title filled out',
+      tags: 'Error while getting AI-Generated tags',
+    },
     expired: 'Your session is expired, you need to login again',
     internetConnection: 'Internet connection problems',
     jwt: 'Error while loading user data',
     login: 'Error while logging in',
     open: 'Error while opening',
+    permission: {
+      pickPhoto: 'Permission to access the camera roll is required!',
+      takePhoto: 'Permission to access the camera is required!',
+    },
     preferences: 'Error while setting up preferences',
     signup: 'Error while signing up',
-    threads: 'Error while getting threads',
+    threads: 'Error while getting/sending threads',
     unexpected: 'Unexpected error',
     userData: 'Error while getting own data',
+    voting: 'Error while changing upvotes',
   },
   errorScreen: {
     friendlySubtitle: 'An error occurred.',
@@ -73,16 +95,33 @@ const en = {
   info: {},
   screen: {
     add: {
+      image: 'Select image ...',
       label: {
         content: 'Content',
         contentSummary: 'Summarized Content',
         title: 'Title',
       },
+      mainTag: 'Main Tag',
       placeholder: {
         content: 'Enter content',
         contentSummary: 'Enter summarized content',
         title: 'Enter title',
       },
+      subTagInfo: 'A maximum of three sub tags can be added',
+      subTags: 'Sub Tags',
+      subTagsAI: 'AI-Generated Tags',
+    },
+    profile: {
+      bio: 'Description',
+      job: 'Job',
+    },
+    quiz: {
+      label: 'Solution',
+      overview: 'Quiz Overview',
+      placeholder: 'Enter solution',
+    },
+    result: {
+      points: 'Points',
     },
     setting: {
       changeColorMode: 'Change Color Theme',
@@ -105,8 +144,12 @@ const en = {
     login: 'Login',
     networkCheck: 'Network-Check',
     profile: 'Profile',
+    quiz: 'Quiz',
+    quizGeneration: 'Quiz Generation',
+    result: 'Results',
     setting: 'Settings',
     signup: 'Sign Up',
+    thread: 'Thread',
     welcome: 'Welcome',
   },
   search: {
@@ -124,7 +167,23 @@ const en = {
     settings: 'Settings',
     theme: 'Theme',
   },
+  success: {
+    dislike: '{{threadTitle}} was downvoted!',
+    like: '{{threadTitle}} was upvoted!',
+    threadAdd: '{{threadTitle}} was successfully created!',
+  },
+  threads: {
+    downvoted: 'Downgevotete Threads',
+    own: 'Own Threads',
+    upvoted: 'Upvoted Threads',
+  },
   validation: {
+    content: {
+      required: 'Content is required',
+    },
+    contentSummary: {
+      required: 'Summarized content is required',
+    },
     email: {
       pattern: 'Invalid email format',
       required: 'Email is required',
@@ -140,6 +199,9 @@ const en = {
       required: 'Password is required',
       special: 'Password must contain at least one special character',
       uppercase: 'Password must contain at least one uppercase letter',
+    },
+    titel: {
+      required: 'Titel is required',
     },
     username: {
       invalidChars: 'Username can only contain letters, numbers,._- characters',

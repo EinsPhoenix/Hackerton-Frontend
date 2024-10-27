@@ -1,5 +1,6 @@
 import { Instance, SnapshotOut, types } from 'mobx-state-tree'
 
+import { getRootStore } from 'app/models/helpers/getRootStore'
 import { appServices, UserDataResult } from 'app/services'
 import { showErrorToast } from 'app/utils'
 
@@ -21,7 +22,8 @@ export const LibraryStoreModel = types
     async getUserRelatedData() {
       try {
         this.setLoading(true)
-        const response = await appServices.getUserData({})
+        const username = getRootStore(store).authenticationStore.claims?.username
+        const response = await appServices.getUserData({ username })
         this.setUserData(response)
       } catch (error: any) {
         showErrorToast('error.userData', error)

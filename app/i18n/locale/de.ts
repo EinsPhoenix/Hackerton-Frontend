@@ -31,28 +31,51 @@ const de = {
   },
   common: {
     add: 'Hinzufügen',
+    backToStart: 'Zurück zu Start',
+    choose: 'Auswählen',
     continue: 'Weiter',
+    deleteAcc: 'Benutzer löschen',
+    deleteAskAgain:
+      'Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.',
+    finish: 'Abschließen',
+    generate: 'Generieren',
+    generateQuiz: 'Quiz generieren',
+    important: 'Wichtig',
     interrupt: 'Abbrechen',
+    skill: 'Erfahrung',
+    start: 'Starten',
   },
   emptyState: {
     genericContent: 'Leider wurden keine Inhalte gefunden.',
     libraryContent: 'Das ist aber leer hier.',
+    somethingWrong: 'Da ist etwas schief gelaufen...',
     std: {
       button: 'Erneut versuchen',
       heading: 'Keine Inhalte',
     },
   },
   error: {
+    ai: {
+      content: 'Fehler beim erhalten des KI-Generierten Inhalts',
+      requiredForContent: 'Sie müssen Inhalt und Titel ausgefüllt haben',
+      requiredForTags: 'Sie müssen Inhalt und Titel ausgefüllt haben',
+      tags: 'Fehler beim erhalten des KI-Generierten Tags',
+    },
     expired: 'Deine Sitzung ist abgelaufen, du musst dich neu einloggen',
     internetConnection: 'Internet Verbindungsprobleme',
     jwt: 'Fehler beim laden der Nutzerdaten',
     login: 'Fehler beim einloggen',
     open: 'Fehler beim öffnen',
+    permission: {
+      pickPhoto: 'Berechtigung zum Zugriff auf die Kamerarolle ist erforderlich!',
+      takePhoto: 'Berechtigung zum Zugriff auf die Kamera ist erforderlich!',
+    },
     preferences: 'Fehler beim festlegen der Preferenzen',
     signup: 'Fehler beim Registrieren',
-    threads: 'Fehler beim erhalten der Threads',
+    threads: 'Fehler beim erhalten/senden der Threads',
     unexpected: 'Unbekannter Fehler',
     userData: 'Fehler beim erhalten der eigenen Daten',
+    voting: 'Fehler beim updaten der Upvotes',
   },
   errorScreen: {
     friendlySubtitle: 'Ein Fehler ist aufgetreten.',
@@ -73,16 +96,33 @@ const de = {
   info: {},
   screen: {
     add: {
+      image: 'Bild auswählen ...',
       label: {
         content: 'Inhalt',
         contentSummary: 'Zusammengefasster Inhalt',
         title: 'Titel',
       },
+      mainTag: 'Haupt Tag',
       placeholder: {
         content: 'Inhalt eingeben',
         contentSummary: 'Zusammengefasster Inhalt eingeben',
         title: 'Titel eingeben',
       },
+      subTagInfo: 'Es können maximal drei neben Tags hinzugefügt werden',
+      subTags: 'Neben Tags',
+      subTagsAI: 'KI-Generierte Tags',
+    },
+    profile: {
+      bio: 'Beschreibung',
+      job: 'Beruf',
+    },
+    quiz: {
+      label: 'Lösung',
+      overview: 'Quiz Übersicht',
+      placeholder: 'Lösung eingeben',
+    },
+    result: {
+      points: 'Punkte',
     },
     setting: {
       changeColorMode: 'Farb-Schema ändern',
@@ -105,15 +145,35 @@ const de = {
     login: 'Login',
     networkCheck: 'Netzwerk-Check',
     profile: 'Profil',
+    quiz: 'Quiz',
+    quizGeneration: 'Quiz Generierung',
+    result: 'Ergebnisse',
     setting: 'Einstellungen',
     signup: 'Registrieren',
+    thread: 'Thread',
     welcome: 'Willkommen',
   },
   search: {
     label: 'Suche',
     placeholder: 'Nach was suchen Sie?',
   },
+  success: {
+    dislike: '{{threadTitle}} wurde gedownvoted!',
+    like: '{{threadTitle}} wurde geupvoted!',
+    threadAdd: '{{threadTitle}} wurde erfolgreich erstellt!',
+  },
+  threads: {
+    downvoted: 'Downgevotete Threads',
+    own: 'Eigene Threads',
+    upvoted: 'Upgevotete Threads',
+  },
   validation: {
+    content: {
+      required: 'Inhalt ist erforderlich',
+    },
+    contentSummary: {
+      required: 'Zusammengefasster Inhalt ist erforderlich',
+    },
     email: {
       pattern: 'Ungültige E-Mail-Adresse.',
       required: 'E-Mail ist erforderlich.',
@@ -129,6 +189,9 @@ const de = {
       required: 'Passwort ist erforderlich.',
       specialCharacter: 'Passwort muss mindestens ein Sonderzeichen enthalten.',
       uppercase: 'Passwort muss mindestens einen Großbuchstaben enthalten.',
+    },
+    titel: {
+      required: 'Titel ist erforderlich',
     },
     username: {
       invalidChars: 'Benutzername darf nur Buchstaben, Zahlen,._- enthalten.',

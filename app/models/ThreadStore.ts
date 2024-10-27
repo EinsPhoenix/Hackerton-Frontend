@@ -1,6 +1,9 @@
+/* eslint-disable camelcase */
+
 import { Instance, SnapshotOut, types } from 'mobx-state-tree'
 
-import { appServices, ThreadResult } from 'app/services'
+import { ContentLanguage } from 'app/i18n'
+import { AddThreadParams, appServices, ThreadResult, VotingParams } from 'app/services'
 import { showErrorToast } from 'app/utils'
 
 export const ThreadStoreModel = types
@@ -18,6 +21,37 @@ export const ThreadStoreModel = types
     },
   }))
   .actions(store => ({
+    async getAIContent(titel: string, content: string, language_code: ContentLanguage) {
+      try {
+        this.setLoading(true)
+        return await appServices.getAIContent({ content, language_code, titel })
+      } catch (error: any) {
+        showErrorToast('error.ai.content', error)
+      } finally {
+        this.setLoading(false)
+      }
+
+      return { content_summary: '' }
+    },
+    async getAITags(titel: string, content: string) {
+      try {
+        this.setLoading(true)
+        return await appServices.getAITags({ content, titel })
+      } catch (error: any) {
+        showErrorToast('error.ai.tags', error)
+      } finally {
+        this.setLoading(false)
+      }
+
+      return {
+        tags: {
+          MainTag: {
+            MainTag: '',
+          },
+          SubTags: [],
+        },
+      }
+    },
     async getThreads(byScrolling?: boolean) {
       try {
         this.setLoading(true)
@@ -25,6 +59,19 @@ export const ThreadStoreModel = types
         this.setThreads(response, byScrolling)
       } catch (error: any) {
         showErrorToast('error.threads', error)
+      } finally {
+        this.setLoading(false)
+      }
+    },
+    async postThread(addThreadParams: AddThreadParams) {
+      try {
+        this.setLoading(true)
+        const response = await appServices.postThread(addThreadParams)
+        this.setThreads([response], true)
+        return true
+      } catch (error: any) {
+        showErrorToast('error.threads', error)
+        return false
       } finally {
         this.setLoading(false)
       }
@@ -55,6 +102,13 @@ export const ThreadStoreModel = types
       }
 
       store.threadList = threadList
+    },
+    async updateVoting(votingParams: VotingParams) {
+      try {
+        await appServices.updateVoting(votingParams)
+      } catch (error: any) {
+        showErrorToast('error.voting', error)
+      }
     },
   }))
 

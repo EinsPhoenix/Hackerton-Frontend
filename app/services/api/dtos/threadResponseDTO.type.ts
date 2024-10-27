@@ -1,3 +1,5 @@
+import { PreferenceValue } from 'app/screens/Entry/WelcomeScreen/PreferencesList'
+
 export interface ThreadResponseDTO {
   id_thread: number
   titel: string
@@ -14,5 +16,18 @@ export interface ThreadResponseDTO {
 export interface ThreadSearchResponseDTO {
   searchresult: {
     threadsmatching: ThreadResponseDTO[]
+  }
+}
+
+export interface TagGeneratedResponseDTO {
+  tags: {
+    MainTag: { MainTag: PreferenceValue }
+    SubTags: PreferenceValue[]
+  }
+}
+
+export interface ContentGeneratedResponseDTO {
+  summary: {
+    content_summary: string
   }
 }

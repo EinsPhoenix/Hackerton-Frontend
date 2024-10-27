@@ -23,6 +23,7 @@ const useWelcome = () => {
 
   useHeader(
     {
+      loading: isLoading,
       RightActionComponent: (
         <TouchableOpacity onPress={logout}>
           <Text
@@ -39,7 +40,6 @@ const useWelcome = () => {
 
   return {
     goNext,
-    isLoading,
     prefs,
     setPrefs,
     styles: welcomeStyles(colors),

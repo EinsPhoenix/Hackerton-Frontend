@@ -9,6 +9,7 @@ import {
   ViewStyle,
 } from 'react-native'
 
+import { LoadingAnimation } from 'app/components/LoadingAnimation'
 import { useAppContext, useColor } from 'app/context'
 import { ExtendedEdge, scaledSize, useSafeAreaInsetsStyle } from 'app/utils'
 
@@ -170,6 +171,7 @@ export interface HeaderProps<L extends LibraryTypes, R extends LibraryTypes> {
   /**
    * Children of Header.
    */
+  loading?: boolean
   children?: React.ReactNode
 }
 
@@ -211,6 +213,7 @@ function HeaderComponent(props: HeaderProps<LibraryTypes, LibraryTypes>): React.
     leftTxOptions,
     leftTxOptionsSub,
     leftTxSub,
+    loading,
     onLeftPress,
     onRightPress,
     RightActionComponent,
@@ -310,6 +313,7 @@ function HeaderComponent(props: HeaderProps<LibraryTypes, LibraryTypes>): React.
           ActionComponent={RightActionComponent}
         />
       </View>
+      <LoadingAnimation loading={loading} position="100%" />
     </View>
   )
 }

@@ -159,7 +159,7 @@ const footerPresets: Record<ContainerPresets, (palette: Palette) => TextStyle> =
 
 /**
  * Cards are useful for displaying related information in a contained way.
- * If a ListItem displays content horizontally, a Card can be used to display content vertically.
+ * If a ListItemDetail displays content horizontally, a Card can be used to display content vertically.
  * @param {CardProps} props - The props for the `Card` component.
  * @returns {React.ReactNode} The rendered `Card` component.
  */

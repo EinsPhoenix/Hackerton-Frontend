@@ -14,7 +14,7 @@ const useHome = () => {
     authenticationStore: { jwtClaims },
     colors,
     navigation,
-    threadStore: { getThreads, isLoading, searchThreads, threads },
+    threadStore: { getThreads, isLoading, searchThreads, threads, updateVoting },
   } = useAppContext()
 
   const searchFieldRef = useRef<CustomTextInputRef | null>(null)
@@ -45,6 +45,7 @@ const useHome = () => {
     {
       leftTextSub: jwtClaims?.username,
       leftTx: greetingKey,
+      loading: isLoading,
       onRightPress: goProfile,
       rightIcon: 'user',
       rightIconLibrary: 'AntDesign',
@@ -70,11 +71,11 @@ const useHome = () => {
     colors,
     handleRefetch,
     handleScroll,
-    isLoading,
     searchFieldRef,
     searchThreads,
     styles: homeStyles(colors),
     threads,
+    updateVoting,
   }
 }
 

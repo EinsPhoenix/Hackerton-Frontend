@@ -13,6 +13,8 @@ const useLibrary = () => {
     navigation,
   } = useAppContext()
 
+  logger.log(userData)
+
   const goAddThread = () => {
     navigation.navigate(ScreenTypes.SUB, { screen: ScreenTypes.ADD })
   }
@@ -20,6 +22,7 @@ const useLibrary = () => {
   useHeader(
     {
       leftTx: 'screens.library',
+      loading: isLoading,
       onRightPress: goAddThread,
       rightIcon: 'add',
       rightIconLibrary: 'Ionicons',
@@ -28,11 +31,13 @@ const useLibrary = () => {
   )
 
   useEffect(() => {
-    getUserRelatedData().then(result => logger.log(result))
-  }, [getUserRelatedData])
+    return navigation.addListener('focus', async () => {
+      await getUserRelatedData()
+    })
+  }, [navigation])
 
   return {
-    isLoading,
+    colors,
     styles: libraryStyles(colors),
     userData,
   }

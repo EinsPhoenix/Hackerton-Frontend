@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   Animated,
   PanResponder,
@@ -12,20 +12,48 @@ import {
 
 import { LinearGradient } from 'expo-linear-gradient'
 
-import { Icon, Image, Text } from 'app/components'
-import { ThreadResult } from 'app/services'
+import { Icon, Image, Text } from 'app/components/index'
+import { navigate, ScreenTypes } from 'app/navigators'
+import { ThreadResult, VotingParams } from 'app/services'
 import { Palette, shadows, sizing } from 'app/theme'
-import { logger } from 'app/utils'
+import { shortenText, showSuccessToast } from 'app/utils'
 
-const ListItem = ({ colors, item }: { colors: Palette; item: ThreadResult }) => {
+interface ListItemProps {
+  colors: Palette
+  item: ThreadResult
+  updateVoting?: (votingParams: VotingParams) => void
+  disableSwipe?: boolean
+}
+
+export const ListItemDetailComponent = ({
+  colors,
+  disableSwipe,
+  item,
+  updateVoting,
+}: ListItemProps) => {
   const dragX = useRef(new Animated.Value(0)).current
+  const [isSwiped, setIsSwiped] = useState(false)
+  const [vote, setVote] = useState(0)
   const styles = listItemStyles()
 
   const resetDrag = () => {
     Animated.spring(dragX, {
       toValue: 0,
       useNativeDriver: true,
-    }).start()
+    }).start(() => setIsSwiped(false)) // Reset swipe state after the animation completes
+  }
+
+  const voteAction = (state: -1 | 1) => {
+    setVote(prev => {
+      if (prev !== state) {
+        const header = state === 1 ? 'success.like' : 'success.dislike'
+        showSuccessToast(header, undefined, {
+          threadTitle: shortenText(item.titel, 20),
+        })
+      }
+
+      return prev === state ? 0 : state
+    })
   }
 
   const panResponder = useRef(
@@ -37,11 +65,19 @@ const ListItem = ({ colors, item }: { colors: Palette; item: ThreadResult }) => 
         dragX.setValue(gestureState.dx)
       },
       onPanResponderRelease: (__event, gestureState) => {
-        if (gestureState.dx > sizing.threshold.normal) {
-          logger.log('dislike action')
+        setIsSwiped(true)
+
+        const votingParams = {
+          voteable: 'thread',
+          voteable_id: item.id_thread,
         }
-        if (gestureState.dx < -sizing.threshold.normal) {
-          logger.log('like action')
+
+        if (gestureState.dx > sizing.threshold.normal) {
+          voteAction(-1)
+          updateVoting && updateVoting({ ...votingParams, upvoteType: 'downvote' })
+        } else if (gestureState.dx < -sizing.threshold.normal) {
+          voteAction(1)
+          updateVoting && updateVoting({ ...votingParams, upvoteType: 'upvote' })
         }
 
         resetDrag()
@@ -53,12 +89,14 @@ const ListItem = ({ colors, item }: { colors: Palette; item: ThreadResult }) => 
   ).current
 
   const goThread = () => {
-    logger.log(item.id_thread)
+    if (!isSwiped) {
+      navigate(ScreenTypes.SUB, { params: { item }, screen: ScreenTypes.THREAD })
+    }
   }
 
   return (
     <Animated.View
-      {...panResponder.panHandlers}
+      {...(!disableSwipe && panResponder.panHandlers)}
       style={[styles.container, { transform: [{ translateX: dragX }] }]}>
       <Icon
         icon="heart-dislike"
@@ -79,7 +117,7 @@ const ListItem = ({ colors, item }: { colors: Palette; item: ThreadResult }) => 
               <Text preset="h3" weight="semiBold" textAlign="right" numberOfLines={1}>
                 {item.titel}
               </Text>
-              <Text preset="h6" textAlign="right" numberOfLines={5}>
+              <Text preset="h6" textAlign="right" numberOfLines={4}>
                 {item.content_summary}
               </Text>
             </View>
@@ -87,7 +125,7 @@ const ListItem = ({ colors, item }: { colors: Palette; item: ThreadResult }) => 
               <Text preset="h5">{item.created_by}</Text>
               <Text preset="h5" text="•" />
               <Text preset="h5" textAlign="right" color={colors.accent}>
-                {item.upvotes}
+                {item.upvotes + vote}
               </Text>
               <Icon icon="arrowup" library="AntDesign" color={colors.accent} />
             </View>
@@ -105,7 +143,9 @@ const ListItem = ({ colors, item }: { colors: Palette; item: ThreadResult }) => 
   )
 }
 
-export default ListItem
+const MemorizedListItemDetail = React.memo(ListItemDetailComponent)
+MemorizedListItemDetail.displayName = 'ListItemDetail'
+export { MemorizedListItemDetail as ListItemDetail }
 
 const dragItemStyle: StyleProp<ViewStyle> = {
   bottom: 0,
@@ -132,7 +172,7 @@ const listItemStyles = () =>
           userSelect: 'none',
         },
       }),
-      height: 120,
+      height: 140,
       marginVertical: sizing.spacing.xs,
     },
     dragItemLeftStyle: {

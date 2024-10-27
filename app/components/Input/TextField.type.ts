@@ -29,6 +29,7 @@ export type Variant = 'filled' | 'outlined' | 'standard'
 
 export type CustomTextInputRef = TextInput & {
   reset: () => void
+  setInput: (text?: string) => void
 }
 
 export interface TextFieldProps<L extends LibraryTypes, R extends LibraryTypes>

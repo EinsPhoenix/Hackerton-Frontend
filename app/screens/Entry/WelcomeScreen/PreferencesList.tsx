@@ -33,6 +33,9 @@ export const PREFERENCES: Preference[] = [
   { chosen: 0, preference: 'Art' },
 ]
 
+export type PreferenceValue = ValueOf<(typeof PREFERENCES)[number]['preference']>
+type ValueOf<T> = T[keyof T]
+
 const PreferencesList: React.FC<PreferencesListProps> = ({ preferences, setPreferences }) => {
   const { colors } = useColor()
 
