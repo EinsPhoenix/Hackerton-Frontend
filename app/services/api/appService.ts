@@ -102,13 +102,12 @@ export class AppServices {
     })
   }
 
-  getThreads = async (threadParams: ThreadParams, signal: AbortSignal): Promise<ThreadResult[]> => {
+  getThreads = async (threadParams: ThreadParams): Promise<ThreadResult[]> => {
     return new Promise((resolve, reject) => {
       serviceAdapter<ThreadResponseDTO[], ThreadParams>(
         API_METHODS.GET,
         END_POINTS.THREADS,
         threadParams,
-        signal,
       )
         .then(res => {
           resolve(new ThreadResponseAdapter().service(res))

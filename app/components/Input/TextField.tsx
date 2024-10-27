@@ -156,6 +156,9 @@ const TextFieldComponent = <L extends LibraryTypes, R extends LibraryTypes>(
   // @ts-ignore
   useImperativeHandle(ref, () => {
     return {
+      input: () => {
+        return inputValue
+      },
       reset: () => {
         setInputValue('')
       },

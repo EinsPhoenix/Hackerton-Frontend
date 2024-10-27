@@ -29,8 +29,6 @@ const useHome = () => {
   } = useAppContext()
 
   const goBack = () => {
-    if (navigation.canGoBack()) return navigation.goBack()
-
     navigation.navigate(ScreenTypes.MAIN, { screen: ScreenTypes.HOME })
   }
 

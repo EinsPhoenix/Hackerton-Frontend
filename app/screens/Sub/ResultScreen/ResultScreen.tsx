@@ -49,7 +49,9 @@ export const ResultScreen: React.FC<SubStackScreenProps<ScreenTypes.RESULT>> = o
               <ListItemSimple
                 colors={colors}
                 item={item}
-                endIcon={item.split(' ').some(word => word.includes('correct')) ? 'check' : 'close'}
+                endIcon={
+                  item.split(' ').some(word => word.includes('incorrect')) ? 'close' : 'check'
+                }
               />
             )}
             data={solutions?.questions}

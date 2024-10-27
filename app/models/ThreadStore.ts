@@ -61,11 +61,9 @@ export const ThreadStoreModel = types
       }
     },
     async getThreads(byScrolling?: boolean) {
-      this.resetAbortController()
-
       try {
         this.setLoading(true)
-        const response = await appServices.getThreads({}, store.abortController.signal)
+        const response = await appServices.getThreads({})
         this.setThreads(response, byScrolling)
       } catch (error: any) {
         showErrorToast('error.threads', error)

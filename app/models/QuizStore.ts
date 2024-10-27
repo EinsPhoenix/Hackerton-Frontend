@@ -46,6 +46,7 @@ export const QuizStoreModel = types
       if (!store.quizList?.questions) return
 
       try {
+        this.setLoading(true)
         const response = await appServices.postAnswers({
           ...checkParams,
           questions: store.quizList.questions,
@@ -54,6 +55,8 @@ export const QuizStoreModel = types
         this.setSolutions(response)
       } catch (error: any) {
         showErrorToast('error.threads', error)
+      } finally {
+        this.setLoading(false)
       }
     },
     reset() {

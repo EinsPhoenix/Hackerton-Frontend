@@ -16,11 +16,14 @@ const useResult = () => {
     params: { item: data },
   } = useRoute<RouteProps<ScreenTypes.RESULT>>()
 
-  useHeader({
-    leftText: data?.titel,
-    leftTxSub: 'screens.result',
-    loading: isLoading,
-  })
+  useHeader(
+    {
+      leftText: data?.titel,
+      leftTxSub: 'screens.result',
+      loading: isLoading,
+    },
+    [isLoading],
+  )
 
   const goHome = () => {
     navigation.navigate(ScreenTypes.MAIN, { screen: ScreenTypes.HOME })

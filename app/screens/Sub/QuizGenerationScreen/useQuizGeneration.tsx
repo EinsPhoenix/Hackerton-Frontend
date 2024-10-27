@@ -35,7 +35,7 @@ const useQuizGeneration = () => {
       titleMode: 'center',
       titleTx: 'screen.quiz.overview',
     },
-    [goBack],
+    [goBack, isLoading],
   )
 
   const handleRefetch = () => {

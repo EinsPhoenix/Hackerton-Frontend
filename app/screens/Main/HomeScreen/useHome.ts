@@ -23,8 +23,10 @@ const useHome = () => {
     navigation.navigate(ScreenTypes.SUB, { screen: ScreenTypes.PROFILE })
   }
 
-  function handleRefetch() {
-    searchFieldRef.current?.reset()
+  async function handleRefetch() {
+    if (searchFieldRef.current?.input()) return searchFieldRef.current?.reset()
+
+    await getThreads()
   }
 
   function getGreetingTime(): TxKeyPath {
@@ -54,7 +56,7 @@ const useHome = () => {
   )
 
   useEffect(() => {
-    getThreads().then()
+    handleRefetch().then()
   }, [getThreads])
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
