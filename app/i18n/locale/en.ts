@@ -31,14 +31,19 @@ const en = {
   },
   common: {
     add: 'Add',
+    backToStart: 'Back to Home',
     choose: 'Choose',
     continue: 'Weiter',
+    finish: 'Finish',
     generate: 'Generate',
+    generateQuiz: 'Generate Quiz',
     interrupt: 'Abbrechen',
+    start: 'Start',
   },
   emptyState: {
     genericContent: 'Unfortunately no content was found.',
     libraryContent: 'It’s quite empty here.',
+    somethingWrong: 'Something went wrong...',
     std: {
       button: 'Try again',
       heading: 'No Content',
@@ -102,6 +107,14 @@ const en = {
       subTags: 'Sub Tags',
       subTagsAI: 'AI-Generated Tags',
     },
+    quiz: {
+      label: 'Solution',
+      overview: 'Quiz Overview',
+      placeholder: 'Enter solution',
+    },
+    result: {
+      points: 'Points',
+    },
     setting: {
       changeColorMode: 'Change Color Theme',
       languages: 'Languages',
@@ -123,6 +136,9 @@ const en = {
     login: 'Login',
     networkCheck: 'Network-Check',
     profile: 'Profile',
+    quiz: 'Quiz',
+    quizGeneration: 'Quiz Generation',
+    result: 'Results',
     setting: 'Settings',
     signup: 'Sign Up',
     thread: 'Thread',

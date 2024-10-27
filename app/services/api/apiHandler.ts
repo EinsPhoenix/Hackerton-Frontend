@@ -42,11 +42,10 @@ api.interceptors.response.use(
           logger.error('Unauthorized:', response.data)
           break
         case 404:
+          if (response.data.message === 'User not found') {
+            await _rootStore.authenticationStore.logout()
+          }
           logger.error('Not Found:', response.data)
-          break
-        case 419:
-          logger.error('Session Invalid:', response.data)
-          await _rootStore.authenticationStore.logout()
           break
         case 500:
           logger.error('Server Error:', response.data)

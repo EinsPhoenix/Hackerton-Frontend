@@ -16,7 +16,7 @@ interface EmptyStateProps<L extends LibraryTypes, R extends LibraryTypes> {
   /**
    * An optional prop that specifies the text/image set to use for the empty state.
    */
-  preset?: 'generic' | 'library'
+  preset?: 'generic' | 'library' | 'fail'
   /**
    * Style override for the container.
    */
@@ -120,6 +120,10 @@ interface EmptyStatePresetItem {
  */
 export function EmptyState(props: EmptyStateProps<LibraryTypes, LibraryTypes>): React.ReactNode {
   const EmptyStatePresets = {
+    fail: {
+      content: translate('emptyState.somethingWrong'),
+      heading: translate('emptyState.std.heading'),
+    } as EmptyStatePresetItem,
     generic: {
       button: translate('emptyState.std.button'),
       content: translate('emptyState.genericContent'),

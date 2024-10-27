@@ -2,15 +2,20 @@ import { convertToFormData } from 'app/utils'
 
 import {
   AddThreadParams,
+  CheckParams,
   ContentGeneratedResult,
   GoogleLoginParams,
   LoginParams,
   LoginResult,
   PreferencesParams,
+  QuizParams,
+  QuizResult,
   SignupParams,
   SignupResult,
+  SolutionsResult,
   TagGeneratedResult,
   ThreadGenerateParams,
+  ThreadInfoParams,
   ThreadParams,
   ThreadResult,
   UserDataParams,
@@ -21,15 +26,18 @@ import { API_METHODS } from './apiMethods.type'
 import type {
   ContentGeneratedResponseDTO,
   LoginResponseDTO,
+  QuizResponseDTO,
   SignupResponseDTO,
   TagGeneratedResponseDTO,
   ThreadResponseDTO,
   ThreadSearchResponseDTO,
   UserDataResponseDTO,
 } from './dtos'
+import { SolutionsResponseDTO } from './dtos'
 import { END_POINTS } from './endPonts.type'
 import {
   LoginResponseAdapter,
+  QuizResponseAdapter,
   SignupResponseAdapter,
   ThreadResponseAdapter,
   UserDataResponseAdapter,
@@ -180,6 +188,46 @@ export class AppServices {
       )
         .then(res => {
           resolve(new ThreadResponseAdapter().serviceGeneratedTags(res))
+        })
+        .catch(reject)
+    })
+  }
+
+  postThreadInfo = async (threadInfoParams: ThreadInfoParams): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<void, ThreadInfoParams>(
+        API_METHODS.POST,
+        END_POINTS.THREAD_INFO,
+        threadInfoParams,
+      )
+        .then(resolve)
+        .catch(reject)
+    })
+  }
+
+  generateQuiz = async (quizParams: QuizParams): Promise<QuizResult> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<QuizResponseDTO, QuizParams>(
+        API_METHODS.GET,
+        `${END_POINTS.GENERATE_QUIZ}/${quizParams.id_thread}/${quizParams.language_code}`,
+        quizParams,
+      )
+        .then(res => {
+          resolve(new QuizResponseAdapter().service(res))
+        })
+        .catch(reject)
+    })
+  }
+
+  postAnswers = async (checkParams: CheckParams): Promise<SolutionsResult> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<SolutionsResponseDTO, CheckParams>(
+        API_METHODS.POST,
+        `${END_POINTS.CHECK_QUIZ}/${checkParams.id_thread}/${checkParams.language_code}`,
+        checkParams,
+      )
+        .then(res => {
+          resolve(new QuizResponseAdapter().serviceSolutions(res))
         })
         .catch(reject)
     })

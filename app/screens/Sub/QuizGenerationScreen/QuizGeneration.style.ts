@@ -1,18 +1,25 @@
 import { StyleSheet } from 'react-native'
 
 import { Palette, sizing } from 'app/theme'
+import { scaleHeight } from 'app/utils'
 
-export const threadStyles = ({ background }: Palette) =>
+export const quizGenerationStyles = ({ background, text }: Palette) =>
   StyleSheet.create({
     button: {
+      bottom: sizing.spacing.md,
       height: 50,
-      margin: sizing.spacing.md,
+      left: sizing.spacing.md,
+      position: 'absolute',
+      right: sizing.spacing.md,
       width: 'auto',
     },
     container: {
       backgroundColor: background,
-      flexGrow: 1,
+      flex: 1,
       paddingHorizontal: sizing.spacing.lg,
+    },
+    disabledText: {
+      color: text,
     },
     img: {
       borderRadius: sizing.radius.lg,
@@ -23,9 +30,15 @@ export const threadStyles = ({ background }: Palette) =>
       height: 200,
       marginBottom: sizing.spacing.md,
     },
-    votingContainer: {
+    imgNoContent: {
+      aspectRatio: 1,
+      height: scaleHeight(100),
+    },
+    imgNoContentContainer: {
       alignItems: 'center',
-      flexDirection: 'row',
-      paddingHorizontal: sizing.spacing.lg,
+    },
+    list: {
+      paddingBottom: 80,
+      paddingVertical: sizing.spacing.xs,
     },
   })

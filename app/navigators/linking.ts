@@ -18,6 +18,10 @@ const config = {
       screens: {
         [ScreenTypes.PROFILE]: ScreenTypes.PROFILE,
         [ScreenTypes.ADD]: ScreenTypes.ADD,
+        [ScreenTypes.THREAD]: ScreenTypes.THREAD,
+        [ScreenTypes.QUIZ_GENERATION]: ScreenTypes.QUIZ_GENERATION,
+        [ScreenTypes.QUIZ]: ScreenTypes.QUIZ,
+        [ScreenTypes.RESULT]: ScreenTypes.RESULT,
       },
     },
     [ScreenTypes.LOGIN]: {

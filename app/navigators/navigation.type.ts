@@ -18,6 +18,9 @@ export enum ScreenTypes {
   SUB = 'sub',
   ADD = 'add',
   THREAD = 'thread',
+  QUIZ_GENERATION = 'quizGeneration',
+  QUIZ = 'quiz',
+  RESULT = 'result',
 }
 
 // Sub NAVIGATOR
@@ -25,6 +28,9 @@ export type SubStackParamList = {
   [ScreenTypes.PROFILE]: undefined
   [ScreenTypes.ADD]: undefined
   [ScreenTypes.THREAD]: ThreadParams
+  [ScreenTypes.QUIZ_GENERATION]: ThreadParams
+  [ScreenTypes.QUIZ]: ThreadParams
+  [ScreenTypes.RESULT]: ThreadParams
 }
 
 export type SubStackScreenProps<T extends keyof SubStackParamList> = CompositeScreenProps<
@@ -33,7 +39,7 @@ export type SubStackScreenProps<T extends keyof SubStackParamList> = CompositeSc
 >
 
 export type ThreadParams = {
-  item: ThreadResult
+  item?: ThreadResult
 }
 
 // MAIN NAVIGATOR
@@ -66,7 +72,5 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStack
 
 export type AppNavigationProp = NativeStackNavigationProp<AppStackParamList & MainTabParamList>
 
-export type RouteProps<T extends keyof AppStackParamList | keyof MainTabParamList> = RouteProp<
-  AppStackParamList & MainTabParamList,
-  T
->
+export type RouteProps<T extends keyof (AppStackParamList & MainTabParamList & SubStackParamList)> =
+  RouteProp<AppStackParamList & MainTabParamList & SubStackParamList, T>

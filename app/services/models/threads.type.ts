@@ -48,3 +48,7 @@ export interface AddThreadParams {
   subtags: PreferenceValue[]
   file?: string
 }
+
+export interface ThreadInfoParams {
+  id_thread: number
+}

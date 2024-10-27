@@ -9,4 +9,7 @@ export enum END_POINTS {
   AI_CONTENT = '/Ai/Summarize',
   AI_TAGS = '/Ai/GenerateTags',
   NEW_THREAD = '/AddNewText',
+  THREAD_INFO = '',
+  GENERATE_QUIZ = '/Ai/GenerateQuiz',
+  CHECK_QUIZ = '/Ai/CheckQuestions',
 }

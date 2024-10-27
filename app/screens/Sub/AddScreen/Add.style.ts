@@ -28,6 +28,7 @@ export const addStyles = ({ background }: Palette) =>
       marginVertical: sizing.spacing.xs,
     },
     img: {
+      borderRadius: sizing.radius.lg,
       height: '100%',
       width: '100%',
     },

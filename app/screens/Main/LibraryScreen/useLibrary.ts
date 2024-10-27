@@ -13,6 +13,8 @@ const useLibrary = () => {
     navigation,
   } = useAppContext()
 
+  logger.log(userData)
+
   const goAddThread = () => {
     navigation.navigate(ScreenTypes.SUB, { screen: ScreenTypes.ADD })
   }
@@ -29,7 +31,7 @@ const useLibrary = () => {
   )
 
   useEffect(() => {
-    getUserRelatedData().then(result => logger.log(result))
+    getUserRelatedData().then()
   }, [getUserRelatedData])
 
   return {

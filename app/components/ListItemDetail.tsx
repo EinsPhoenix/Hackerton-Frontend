@@ -12,7 +12,7 @@ import {
 
 import { LinearGradient } from 'expo-linear-gradient'
 
-import { Icon, Image, Text } from 'app/components'
+import { Icon, Image, Text } from 'app/components/index'
 import { navigate, ScreenTypes } from 'app/navigators'
 import { ThreadResult, VotingParams } from 'app/services'
 import { Palette, shadows, sizing } from 'app/theme'
@@ -24,7 +24,7 @@ interface ListItemProps {
   updateVoting: (votingParams: VotingParams) => void
 }
 
-const ListItem = ({ colors, item, updateVoting }: ListItemProps) => {
+export const ListItemDetailComponent = ({ colors, item, updateVoting }: ListItemProps) => {
   const dragX = useRef(new Animated.Value(0)).current
   const [isSwiped, setIsSwiped] = useState(false)
   const [vote, setVote] = useState(0)
@@ -84,7 +84,7 @@ const ListItem = ({ colors, item, updateVoting }: ListItemProps) => {
 
   const goThread = () => {
     if (!isSwiped) {
-      navigate(ScreenTypes.SUB, { screen: ScreenTypes.THREAD })
+      navigate(ScreenTypes.SUB, { params: { item }, screen: ScreenTypes.THREAD })
     }
   }
 
@@ -111,7 +111,7 @@ const ListItem = ({ colors, item, updateVoting }: ListItemProps) => {
               <Text preset="h3" weight="semiBold" textAlign="right" numberOfLines={1}>
                 {item.titel}
               </Text>
-              <Text preset="h6" textAlign="right" numberOfLines={5}>
+              <Text preset="h6" textAlign="right" numberOfLines={4}>
                 {item.content_summary}
               </Text>
             </View>
@@ -137,7 +137,9 @@ const ListItem = ({ colors, item, updateVoting }: ListItemProps) => {
   )
 }
 
-export default ListItem
+const MemorizedListItemDetail = React.memo(ListItemDetailComponent)
+MemorizedListItemDetail.displayName = 'ListItemDetail'
+export { MemorizedListItemDetail as ListItemDetail }
 
 const dragItemStyle: StyleProp<ViewStyle> = {
   bottom: 0,
@@ -164,7 +166,7 @@ const listItemStyles = () =>
           userSelect: 'none',
         },
       }),
-      height: 120,
+      height: 140,
       marginVertical: sizing.spacing.xs,
     },
     dragItemLeftStyle: {

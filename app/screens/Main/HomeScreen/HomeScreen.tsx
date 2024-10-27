@@ -2,12 +2,11 @@ import React from 'react'
 
 import { observer } from 'mobx-react-lite'
 
-import { EmptyState, ListView, Screen, TextField } from 'app/components'
+import { EmptyState, ListItemDetail, ListView, Screen, TextField } from 'app/components'
 import type { MainTabScreenProps, ScreenTypes } from 'app/navigators'
 import { ThreadResult } from 'app/services'
 import { useRenderCount } from 'app/utils'
 
-import ListItem from './ListItem'
 import useHome from './useHome'
 
 export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observer(function Home(
@@ -54,7 +53,7 @@ export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observ
           onScroll={handleScroll}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }: { item: ThreadResult }) => (
-            <ListItem colors={colors} item={item} updateVoting={updateVoting} />
+            <ListItemDetail colors={colors} item={item} updateVoting={updateVoting} />
           )}
           data={threads}
           estimatedItemSize={136}

@@ -31,14 +31,19 @@ const de = {
   },
   common: {
     add: 'Hinzufügen',
+    backToStart: 'Zurück zu Start',
     choose: 'Auswählen',
     continue: 'Weiter',
+    finish: 'Abschließen',
     generate: 'Generieren',
+    generateQuiz: 'Quiz generieren',
     interrupt: 'Abbrechen',
+    start: 'Starten',
   },
   emptyState: {
     genericContent: 'Leider wurden keine Inhalte gefunden.',
     libraryContent: 'Das ist aber leer hier.',
+    somethingWrong: 'Da ist etwas schief gelaufen...',
     std: {
       button: 'Erneut versuchen',
       heading: 'Keine Inhalte',
@@ -102,6 +107,14 @@ const de = {
       subTags: 'Neben Tags',
       subTagsAI: 'KI-Generierte Tags',
     },
+    quiz: {
+      label: 'Lösung',
+      overview: 'Quiz Übersicht',
+      placeholder: 'Lösung eingeben',
+    },
+    result: {
+      points: 'Punkte',
+    },
     setting: {
       changeColorMode: 'Farb-Schema ändern',
       languages: 'Sprachen',
@@ -123,6 +136,9 @@ const de = {
     login: 'Login',
     networkCheck: 'Netzwerk-Check',
     profile: 'Profil',
+    quiz: 'Quiz',
+    quizGeneration: 'Quiz Generierung',
+    result: 'Ergebnisse',
     setting: 'Einstellungen',
     signup: 'Registrieren',
     thread: 'Thread',
