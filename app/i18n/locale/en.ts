@@ -34,10 +34,14 @@ const en = {
     backToStart: 'Back to Home',
     choose: 'Choose',
     continue: 'Weiter',
+    deleteAcc: 'Delete Account',
+    deleteAskAgain: 'Are you sure you want to delete your account? This action cannot be undone.',
     finish: 'Finish',
     generate: 'Generate',
     generateQuiz: 'Generate Quiz',
+    important: 'Important',
     interrupt: 'Abbrechen',
+    skill: 'Skill',
     start: 'Start',
   },
   emptyState: {
@@ -107,6 +111,10 @@ const en = {
       subTags: 'Sub Tags',
       subTagsAI: 'AI-Generated Tags',
     },
+    profile: {
+      bio: 'Description',
+      job: 'Job',
+    },
     quiz: {
       label: 'Solution',
       overview: 'Quiz Overview',
@@ -163,6 +171,11 @@ const en = {
     dislike: '{{threadTitle}} was downvoted!',
     like: '{{threadTitle}} was upvoted!',
     threadAdd: '{{threadTitle}} was successfully created!',
+  },
+  threads: {
+    downvoted: 'Downgevotete Threads',
+    own: 'Own Threads',
+    upvoted: 'Upvoted Threads',
   },
   validation: {
     content: {

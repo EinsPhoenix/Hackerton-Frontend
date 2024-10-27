@@ -29,18 +29,18 @@ export class ThreadResponseAdapter {
 
   serviceGeneratedTags(dto: TagGeneratedResponseDTO): TagGeneratedResult {
     return {
-      preferences: {
+      tags: {
         MainTag: {
-          MainTag: dto.preferences.MainTag,
+          MainTag: dto.tags.MainTag.MainTag,
         },
-        SubTags: dto.preferences.SubTags,
+        SubTags: dto.tags.SubTags,
       },
     }
   }
 
   serviceGeneratedContent(dto: ContentGeneratedResponseDTO): ContentGeneratedResult {
     return {
-      content_summary: dto.content_summary,
+      content_summary: dto.summary.content_summary,
     }
   }
 

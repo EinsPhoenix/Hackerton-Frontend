@@ -7,7 +7,7 @@ import { logger } from 'app/utils'
 // Create an Axios instance
 const api = axios.create({
   baseURL: Config.API_URL,
-  timeout: 10000,
+  timeout: 15000,
 })
 
 // Interceptors for handling requests and responses
@@ -39,6 +39,9 @@ api.interceptors.response.use(
           logger.error('Bad Request:', response.data)
           break
         case 401:
+          if (response.data.message === 'User not found') {
+            await _rootStore.authenticationStore.logout()
+          }
           logger.error('Unauthorized:', response.data)
           break
         case 404:

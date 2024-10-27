@@ -1,12 +1,11 @@
 import { ThreadResult } from 'app/services'
 
-// TODO REPLACE WITH RIGHT TYPES
 export interface UserDataResponseDTO {
   username: string
   user_id: string
   bio: string
   job: string
-  importantInfo: string[]
+  importantInfo: ImportantInfoResponseDTO[]
   upvoted_threads: ThreadResult[]
   downvoted_threads: ThreadResult[]
   upvoted_comments: string[]
@@ -16,4 +15,16 @@ export interface UserDataResponseDTO {
   written_threads: ThreadResult[]
   shared_questions: string[]
   reports: string[]
+}
+
+export interface ImportantInfoResponseDTO {
+  information: string
+  created_at: string
+}
+
+export interface PreferencesResponseDTO {
+  preferences: {
+    preference: string
+    weight: number
+  }
 }

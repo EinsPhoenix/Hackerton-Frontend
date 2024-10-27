@@ -21,10 +21,16 @@ import { shortenText, showSuccessToast } from 'app/utils'
 interface ListItemProps {
   colors: Palette
   item: ThreadResult
-  updateVoting: (votingParams: VotingParams) => void
+  updateVoting?: (votingParams: VotingParams) => void
+  disableSwipe?: boolean
 }
 
-export const ListItemDetailComponent = ({ colors, item, updateVoting }: ListItemProps) => {
+export const ListItemDetailComponent = ({
+  colors,
+  disableSwipe,
+  item,
+  updateVoting,
+}: ListItemProps) => {
   const dragX = useRef(new Animated.Value(0)).current
   const [isSwiped, setIsSwiped] = useState(false)
   const [vote, setVote] = useState(0)
@@ -68,10 +74,10 @@ export const ListItemDetailComponent = ({ colors, item, updateVoting }: ListItem
 
         if (gestureState.dx > sizing.threshold.normal) {
           voteAction(-1)
-          updateVoting({ ...votingParams, upvoteType: 'downvote' })
+          updateVoting && updateVoting({ ...votingParams, upvoteType: 'downvote' })
         } else if (gestureState.dx < -sizing.threshold.normal) {
           voteAction(1)
-          updateVoting({ ...votingParams, upvoteType: 'upvote' })
+          updateVoting && updateVoting({ ...votingParams, upvoteType: 'upvote' })
         }
 
         resetDrag()
@@ -90,7 +96,7 @@ export const ListItemDetailComponent = ({ colors, item, updateVoting }: ListItem
 
   return (
     <Animated.View
-      {...panResponder.panHandlers}
+      {...(!disableSwipe && panResponder.panHandlers)}
       style={[styles.container, { transform: [{ translateX: dragX }] }]}>
       <Icon
         icon="heart-dislike"

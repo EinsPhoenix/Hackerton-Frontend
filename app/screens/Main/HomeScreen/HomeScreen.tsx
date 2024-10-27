@@ -27,7 +27,7 @@ export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observ
   return (
     <Screen
       contentContainerStyle={styles.container}
-      preset="auto"
+      preset="fixed"
       safeAreaEdges={['top', 'bottom']}>
       <TextField
         ref={searchFieldRef}
@@ -40,7 +40,7 @@ export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observ
         debounceDelay={300}
         onChangeTextDebounce={text => searchThreads(text)}
       />
-      {!threads?.length || threads?.length === 0 ? (
+      {threads?.length === 0 ? (
         <EmptyState
           preset="generic"
           imageStyle={styles.imgNoContent}
@@ -57,7 +57,7 @@ export const HomeScreen: React.FC<MainTabScreenProps<ScreenTypes.HOME>> = observ
           )}
           data={threads}
           estimatedItemSize={136}
-          scrollEventThrottle={100}
+          scrollEventThrottle={2000}
         />
       )}
     </Screen>

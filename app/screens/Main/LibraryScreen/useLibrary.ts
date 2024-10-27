@@ -31,10 +31,13 @@ const useLibrary = () => {
   )
 
   useEffect(() => {
-    getUserRelatedData().then()
-  }, [getUserRelatedData])
+    return navigation.addListener('focus', async () => {
+      await getUserRelatedData()
+    })
+  }, [navigation])
 
   return {
+    colors,
     styles: libraryStyles(colors),
     userData,
   }
