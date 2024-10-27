@@ -1,6 +1,7 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
 import Config from 'app/config'
+import { translate, TxKeyPath } from 'app/i18n'
 import { _rootStore } from 'app/models'
 import { logger } from 'app/utils'
 
@@ -39,9 +40,7 @@ api.interceptors.response.use(
           logger.error('Bad Request:', response.data)
           break
         case 401:
-          if (response.data.message === 'User not found') {
-            await _rootStore.authenticationStore.logout()
-          }
+          await _rootStore.authenticationStore.logout()
           logger.error('Unauthorized:', response.data)
           break
         case 404:
@@ -59,6 +58,8 @@ api.interceptors.response.use(
     } else {
       logger.error('Network Error:', error.message)
     }
+
+    error.message = translate(('error.' + error.message) as TxKeyPath)
 
     return Promise.reject(error)
   },
