@@ -12,6 +12,9 @@ export const ThreadStoreModel = types
     loading: types.optional(types.boolean, false),
     threadList: types.maybe(types.frozen<ThreadResult[]>()),
   })
+  .volatile(() => ({
+    abortController: new AbortController(),
+  }))
   .views(store => ({
     get isLoading() {
       return store.loading
@@ -22,9 +25,14 @@ export const ThreadStoreModel = types
   }))
   .actions(store => ({
     async getAIContent(titel: string, content: string, language_code: ContentLanguage) {
+      this.resetAbortController()
+
       try {
         this.setLoading(true)
-        return await appServices.getAIContent({ content, language_code, titel })
+        return await appServices.getAIContent(
+          { content, language_code, titel },
+          store.abortController.signal,
+        )
       } catch (error: any) {
         showErrorToast('error.ai.content', error)
       } finally {
@@ -53,9 +61,11 @@ export const ThreadStoreModel = types
       }
     },
     async getThreads(byScrolling?: boolean) {
+      this.resetAbortController()
+
       try {
         this.setLoading(true)
-        const response = await appServices.getThreads({})
+        const response = await appServices.getThreads({}, store.abortController.signal)
         this.setThreads(response, byScrolling)
       } catch (error: any) {
         showErrorToast('error.threads', error)
@@ -76,7 +86,15 @@ export const ThreadStoreModel = types
         this.setLoading(false)
       }
     },
+    resetAbortController() {
+      if (store.abortController) {
+        store.abortController.abort()
+      }
+      store.abortController = new AbortController()
+    },
     async searchThreads(searchTerm?: string) {
+      this.resetAbortController()
+
       try {
         this.setLoading(true)
         const params = {
@@ -84,7 +102,7 @@ export const ThreadStoreModel = types
           search_term: searchTerm,
         }
 
-        const response = await appServices.searchThreads(params)
+        const response = await appServices.searchThreads(params, store.abortController.signal)
         this.setThreads(response)
       } catch (error: any) {
         showErrorToast('error.threads', error)

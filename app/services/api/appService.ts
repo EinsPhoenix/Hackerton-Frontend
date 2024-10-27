@@ -102,12 +102,13 @@ export class AppServices {
     })
   }
 
-  getThreads = async (threadParams: ThreadParams): Promise<ThreadResult[]> => {
+  getThreads = async (threadParams: ThreadParams, signal: AbortSignal): Promise<ThreadResult[]> => {
     return new Promise((resolve, reject) => {
       serviceAdapter<ThreadResponseDTO[], ThreadParams>(
         API_METHODS.GET,
         END_POINTS.THREADS,
         threadParams,
+        signal,
       )
         .then(res => {
           resolve(new ThreadResponseAdapter().service(res))
@@ -116,12 +117,16 @@ export class AppServices {
     })
   }
 
-  searchThreads = async (threadParams: ThreadParams): Promise<ThreadResult[]> => {
+  searchThreads = async (
+    threadParams: ThreadParams,
+    signal: AbortSignal,
+  ): Promise<ThreadResult[]> => {
     return new Promise((resolve, reject) => {
       serviceAdapter<ThreadSearchResponseDTO, ThreadParams>(
         API_METHODS.POST,
         END_POINTS.SEARCH_THREADS,
         threadParams,
+        signal,
       )
         .then(res => {
           resolve(new ThreadResponseAdapter().serviceSearch(res))
@@ -152,12 +157,16 @@ export class AppServices {
     })
   }
 
-  getUserData = async (userDataParams: UserDataParams): Promise<UserDataResult> => {
+  getUserData = async (
+    userDataParams: UserDataParams,
+    signal: AbortSignal,
+  ): Promise<UserDataResult> => {
     return new Promise((resolve, reject) => {
       serviceAdapter<UserDataResponseDTO, UserDataParams>(
         API_METHODS.POST,
         END_POINTS.USER_DATA,
         userDataParams,
+        signal,
       )
         .then(res => {
           resolve(new UserDataResponseAdapter().service(res))
@@ -168,12 +177,14 @@ export class AppServices {
 
   getAIContent = async (
     threadGenerateParams: ThreadGenerateParams,
+    signal: AbortSignal,
   ): Promise<ContentGeneratedResult> => {
     return new Promise((resolve, reject) => {
       serviceAdapter<ContentGeneratedResponseDTO, ThreadGenerateParams>(
         API_METHODS.POST,
         `${END_POINTS.AI_CONTENT}/${threadGenerateParams.language_code}`,
         threadGenerateParams,
+        signal,
       )
         .then(res => {
           resolve(new ThreadResponseAdapter().serviceGeneratedContent(res))
@@ -208,12 +219,13 @@ export class AppServices {
     })
   }
 
-  generateQuiz = async (quizParams: QuizParams): Promise<QuizResult> => {
+  generateQuiz = async (quizParams: QuizParams, signal: AbortSignal): Promise<QuizResult> => {
     return new Promise((resolve, reject) => {
       serviceAdapter<QuizResponseDTO, QuizParams>(
         API_METHODS.GET,
         `${END_POINTS.GENERATE_QUIZ}/${quizParams.id_thread}/${quizParams.language_code}`,
         quizParams,
+        signal,
       )
         .then(res => {
           resolve(new QuizResponseAdapter().service(res))
@@ -238,12 +250,14 @@ export class AppServices {
 
   getPreferences = async (
     weightedPreferencesParams: WeightedPreferencesParams,
+    signal: AbortSignal,
   ): Promise<PreferencesResult[]> => {
     return new Promise((resolve, reject) => {
       serviceAdapter<PreferencesResponseDTO[], WeightedPreferencesParams>(
         API_METHODS.GET,
         END_POINTS.PREFERENCES_WEIGHT,
         weightedPreferencesParams,
+        signal,
       )
         .then(res => {
           resolve(new QuizResponseAdapter().servicePrefs(res))

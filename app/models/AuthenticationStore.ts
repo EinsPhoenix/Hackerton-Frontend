@@ -24,6 +24,9 @@ export const AuthenticationStoreModel = types
     token: types.maybe(types.string),
     userImage: types.maybe(types.string),
   })
+  .volatile(() => ({
+    abortController: new AbortController(),
+  }))
   .views(store => ({
     /**
      * Checks if any user preferences are selected.
@@ -83,9 +86,11 @@ export const AuthenticationStoreModel = types
       logger.log('Delete')
     },
     async getPreferences() {
+      this.resetAbortController()
+
       try {
         this.setLoading(true)
-        const response = await appServices.getPreferences({})
+        const response = await appServices.getPreferences({}, store.abortController.signal)
         logger.log(response)
         this.setWeightedPreferences(response)
       } catch (error: any) {
@@ -155,6 +160,13 @@ export const AuthenticationStoreModel = types
       } finally {
         this.setLoading(false)
       }
+    },
+
+    resetAbortController() {
+      if (store.abortController) {
+        store.abortController.abort()
+      }
+      store.abortController = new AbortController()
     },
 
     /**

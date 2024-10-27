@@ -12,6 +12,9 @@ export const QuizStoreModel = types
     quizList: types.maybe(types.frozen<QuizResult | null>()),
     solutionList: types.maybe(types.frozen<SolutionsResult | null>()),
   })
+  .volatile(() => ({
+    abortController: new AbortController(),
+  }))
   .views(store => ({
     get isLoading() {
       return store.loading
@@ -25,11 +28,13 @@ export const QuizStoreModel = types
   }))
   .actions(store => ({
     async generateQuiz(quizParams: QuizParams) {
+      this.resetAbortController()
+
       try {
         this.reset()
         this.setLoading(true)
         logger.log(quizParams)
-        const response = await appServices.generateQuiz(quizParams)
+        const response = await appServices.generateQuiz(quizParams, store.abortController.signal)
         this.setQuiz(response)
       } catch (error: any) {
         showErrorToast('error.threads', error)
@@ -55,6 +60,12 @@ export const QuizStoreModel = types
       this.setQuiz(null)
       this.setSolutions(null)
       this.setLoading(false)
+    },
+    resetAbortController() {
+      if (store.abortController) {
+        store.abortController.abort()
+      }
+      store.abortController = new AbortController()
     },
     setLoading(value: boolean) {
       store.loading = value
