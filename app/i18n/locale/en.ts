@@ -103,7 +103,7 @@ const en = {
     questionsOrAnswersNotProvided: 'There are no questions or answers provided',
     exceptionFetchingThreads: 'An error occurred while trying to fetch threads',
     noQuestionsFoundForThread: 'Questions could not be found for this thread',
-    invalidJsonResponseFromWeigthUserPrefs: 'Invalid JSON Response From Weight User Prefs',
+    invalidJsonResponseFromWeigthUserPrefs: 'Invalid JSON Response from Weight User Prefs',
     exceptionWeightingUserPreferencesForUser: 'An error occurred while trying to weight user preferences for user',
     exceptionGeneratingTagsForUser: 'An error occurred while trying to generate tags for the user',
     invalidInputData: 'Invalid input data',
