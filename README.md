@@ -4,6 +4,7 @@
 
 
 # Change EXPO_PUBLIC_API_URL and PORT to your backend server!!!!!
+# Can also be opened in Android and IOS
 
 
 # IMPORTANT!
