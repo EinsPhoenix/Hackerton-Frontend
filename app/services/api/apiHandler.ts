@@ -64,7 +64,7 @@ api.interceptors.response.use(
       logger.error('Network Error:', error.message)
     }
 
-    console.log(error)
+    error.message = translate('error.' + error.message as TxKeyPath)
     
     console.log(translate('error.' + error.message as TxKeyPath));
 
