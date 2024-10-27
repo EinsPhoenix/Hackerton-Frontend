@@ -34,10 +34,15 @@ const de = {
     backToStart: 'Zurück zu Start',
     choose: 'Auswählen',
     continue: 'Weiter',
+    deleteAcc: 'Benutzer löschen',
+    deleteAskAgain:
+      'Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.',
     finish: 'Abschließen',
     generate: 'Generieren',
     generateQuiz: 'Quiz generieren',
+    important: 'Wichtig',
     interrupt: 'Abbrechen',
+    skill: 'Erfahrung',
     start: 'Starten',
   },
   emptyState: {
@@ -107,6 +112,10 @@ const de = {
       subTags: 'Neben Tags',
       subTagsAI: 'KI-Generierte Tags',
     },
+    profile: {
+      bio: 'Beschreibung',
+      job: 'Beruf',
+    },
     quiz: {
       label: 'Lösung',
       overview: 'Quiz Übersicht',
@@ -152,6 +161,11 @@ const de = {
     dislike: '{{threadTitle}} wurde gedownvoted!',
     like: '{{threadTitle}} wurde geupvoted!',
     threadAdd: '{{threadTitle}} wurde erfolgreich erstellt!',
+  },
+  threads: {
+    downvoted: 'Downgevotete Threads',
+    own: 'Eigene Threads',
+    upvoted: 'Upgevotete Threads',
   },
   validation: {
     content: {

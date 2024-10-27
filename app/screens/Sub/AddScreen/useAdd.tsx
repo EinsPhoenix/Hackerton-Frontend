@@ -10,7 +10,7 @@ import { translate } from 'app/i18n'
 import { ScreenTypes } from 'app/navigators'
 import { PreferenceValue } from 'app/screens/Entry/WelcomeScreen/PreferencesList'
 import { AddThreadParams } from 'app/services'
-import { shortenText, showErrorToast, showSuccessToast, useHeader } from 'app/utils'
+import { logger, shortenText, showErrorToast, showSuccessToast, useHeader } from 'app/utils'
 
 import { addStyles } from './Add.style'
 
@@ -99,6 +99,7 @@ const useAdd = () => {
       return showErrorToast('error.ai.requiredForContent')
 
     const generatedContent = await getAIContent(titel, content, language)
+
     inputRefs.current.content_summary.current?.setInput(generatedContent?.content_summary)
     await assignValue('content_summary')(generatedContent?.content_summary)
   }
@@ -111,15 +112,17 @@ const useAdd = () => {
       return showErrorToast('error.ai.requiredForTags')
 
     const generatedTags = await getAITags(content, titel)
-    const mappedSubTags = generatedTags?.preferences.SubTags.map(
+    const mappedSubTags = generatedTags?.tags.SubTags.map(
       (subtag: any, index) => subtag['SubTag' + (index + 1)] as PreferenceValue,
     )
 
+    logger.log(generatedTags)
+
     dropdownRefs.current.main_tag.current?.setSelectedItems([
-      generatedTags?.preferences.MainTag.MainTag as string,
+      generatedTags?.tags.MainTag.MainTag as string,
     ])
     dropdownRefs.current.subtags.current?.setSelectedItems(mappedSubTags as string[])
-    await assignValue('main_tag')(generatedTags?.preferences.MainTag.MainTag)
+    await assignValue('main_tag')(generatedTags?.tags.MainTag.MainTag)
     await assignValue('subtags')(mappedSubTags)
   }
 

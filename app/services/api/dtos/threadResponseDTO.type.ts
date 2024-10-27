@@ -20,12 +20,14 @@ export interface ThreadSearchResponseDTO {
 }
 
 export interface TagGeneratedResponseDTO {
-  preferences: {
-    MainTag: PreferenceValue
+  tags: {
+    MainTag: { MainTag: PreferenceValue }
     SubTags: PreferenceValue[]
   }
 }
 
 export interface ContentGeneratedResponseDTO {
-  content_summary: string
+  summary: {
+    content_summary: string
+  }
 }

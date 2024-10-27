@@ -39,6 +39,9 @@ api.interceptors.response.use(
           logger.error('Bad Request:', response.data)
           break
         case 401:
+          if (response.data.message === 'User not found') {
+            await _rootStore.authenticationStore.logout()
+          }
           logger.error('Unauthorized:', response.data)
           break
         case 404:

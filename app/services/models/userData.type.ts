@@ -1,7 +1,9 @@
 import { ThreadResult } from 'app/services'
 
-// TODO REPLACE WITH RIGHT TYPES
 export interface UserDataResult {
+  bio: string
+  job: string
+  importantInfo: ImportantInfoResult[]
   upvoted_threads: ThreadResult[]
   downvoted_threads: ThreadResult[]
   upvoted_comments: string[]
@@ -13,4 +15,11 @@ export interface UserDataResult {
   reports: string[]
 }
 
-export type UserDataParams = object
+export type UserDataParams = {
+  username?: string
+}
+
+export interface ImportantInfoResult {
+  information: string
+  created_at: string
+}

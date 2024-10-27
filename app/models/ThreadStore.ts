@@ -54,7 +54,7 @@ export const ThreadStoreModel = types
       }
 
       return {
-        preferences: {
+        tags: {
           MainTag: {
             MainTag: '',
           },

@@ -8,6 +8,7 @@ import {
   LoginParams,
   LoginResult,
   PreferencesParams,
+  PreferencesResult,
   QuizParams,
   QuizResult,
   SignupParams,
@@ -21,11 +22,13 @@ import {
   UserDataParams,
   UserDataResult,
   VotingParams,
+  WeightedPreferencesParams,
 } from '../models'
 import { API_METHODS } from './apiMethods.type'
 import type {
   ContentGeneratedResponseDTO,
   LoginResponseDTO,
+  PreferencesResponseDTO,
   QuizResponseDTO,
   SignupResponseDTO,
   TagGeneratedResponseDTO,
@@ -160,8 +163,8 @@ export class AppServices {
   ): Promise<UserDataResult> => {
     return new Promise((resolve, reject) => {
       serviceAdapter<UserDataResponseDTO, UserDataParams>(
-        API_METHODS.GET,
-        END_POINTS.THREADS,
+        API_METHODS.POST,
+        END_POINTS.USER_DATA,
         userDataParams,
         signal,
       )
@@ -244,6 +247,22 @@ export class AppServices {
       )
         .then(res => {
           resolve(new QuizResponseAdapter().serviceSolutions(res))
+        })
+        .catch(reject)
+    })
+  }
+
+  getPreferences = async (
+    weightedPreferencesParams: WeightedPreferencesParams,
+  ): Promise<PreferencesResult[]> => {
+    return new Promise((resolve, reject) => {
+      serviceAdapter<PreferencesResponseDTO[], WeightedPreferencesParams>(
+        API_METHODS.GET,
+        END_POINTS.PREFERENCES_WEIGHT,
+        weightedPreferencesParams,
+      )
+        .then(res => {
+          resolve(new QuizResponseAdapter().servicePrefs(res))
         })
         .catch(reject)
     })

@@ -11,7 +11,7 @@ export interface ThreadResult {
 }
 
 export interface TagGeneratedResult {
-  preferences: {
+  tags: {
     MainTag: {
       MainTag: PreferenceValue
     }
