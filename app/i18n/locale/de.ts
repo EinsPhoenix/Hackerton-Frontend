@@ -36,7 +36,7 @@ const de = {
   },
   emptyState: {
     genericContent: 'Leider wurden keine Inhalte gefunden.',
-    libraryContent: 'Das ist aber leer hier.',
+    libraryContent: 'Ziemlich leer hier.',
     std: {
       button: 'Erneut versuchen',
       heading: 'Keine Inhalte',
@@ -53,7 +53,7 @@ const de = {
     threads: 'Fehler beim erhalten der Threads',
     unexpected: 'Unbekannter Fehler',
     userData: 'Fehler beim erhalten der eigenen Daten',
-    userMissing: 'Der Benutzer existiert nicht' // dies ist ein test muss noch vom backend gezogen werden
+    
   },
   errorScreen: {
     friendlySubtitle: 'Ein Fehler ist aufgetreten.',
