@@ -1,0 +1,17 @@
+export enum Icons {
+  BACK = require('./back.png'),
+  BELL = require('./bell.png'),
+  CARET_LEFT = require('./caretLeft.png'),
+  CARET_RIGHT = require('./caretRight.png'),
+  CHECK = require('./check.png'),
+  HIDDEN = require('./hidden.png'),
+  LADYBUG = require('./ladybug.png'),
+  LOCK = require('./lock.png'),
+  MENU = require('./menu.png'),
+  MORE = require('./more.png'),
+  SETTINGS = require('./settings.png'),
+  VIEW = require('./view.png'),
+  X = require('./x.png'),
+  GOOGLE = require('./google.png'),
+  AI = require('./ai.png'),
+}
