@@ -14,7 +14,7 @@ const useHome = () => {
     authenticationStore: { jwtClaims },
     colors,
     navigation,
-    threadStore: { getThreads, isLoading, searchThreads, setLoading, threads, updateVoting },
+    threadStore: { getThreads, isLoading, searchThreads, threads, updateVoting },
   } = useAppContext()
 
   const searchFieldRef = useRef<CustomTextInputRef | null>(null)
@@ -23,7 +23,12 @@ const useHome = () => {
     navigation.navigate(ScreenTypes.SUB, { screen: ScreenTypes.PROFILE })
   }
 
-  function handleRefetch() {
+  async function handleRefetch() {
+    if (searchFieldRef.current?.input()?.length === 0) {
+      await getThreads()
+      return
+    }
+
     searchFieldRef.current?.reset()
   }
 
@@ -56,10 +61,6 @@ const useHome = () => {
   useEffect(() => {
     getThreads().then()
   }, [getThreads])
-
-  useEffect(() => {
-    setLoading(false)
-  }, [])
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const contentHeight = event.nativeEvent.contentSize.height

@@ -7,7 +7,7 @@ import { logger } from 'app/utils'
 // Create an Axios instance
 const api = axios.create({
   baseURL: Config.API_URL,
-  timeout: 10000,
+  timeout: 100000,
 })
 
 // Interceptors for handling requests and responses

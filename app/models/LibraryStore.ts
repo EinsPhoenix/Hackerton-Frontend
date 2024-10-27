@@ -9,6 +9,9 @@ export const LibraryStoreModel = types
     loading: types.optional(types.boolean, false),
     userRelatedData: types.maybe(types.frozen<UserDataResult>()),
   })
+  .volatile(() => ({
+    abortController: new AbortController(),
+  }))
   .views(store => ({
     get isLoading() {
       return store.loading
@@ -19,15 +22,23 @@ export const LibraryStoreModel = types
   }))
   .actions(store => ({
     async getUserRelatedData() {
+      this.resetAbortController()
+
       try {
         this.setLoading(true)
-        const response = await appServices.getUserData({})
+        const response = await appServices.getUserData({}, store.abortController.signal)
         this.setUserData(response)
       } catch (error: any) {
         showErrorToast('error.userData', error)
       } finally {
         this.setLoading(false)
       }
+    },
+    resetAbortController() {
+      if (store.abortController) {
+        store.abortController.abort()
+      }
+      store.abortController = new AbortController()
     },
     setLoading(value: boolean) {
       store.loading = value
