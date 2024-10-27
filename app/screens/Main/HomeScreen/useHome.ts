@@ -23,7 +23,12 @@ const useHome = () => {
     navigation.navigate(ScreenTypes.SUB, { screen: ScreenTypes.PROFILE })
   }
 
-  function handleRefetch() {
+  async function handleRefetch() {
+    if (searchFieldRef.current?.input()?.length === 0) {
+      await getThreads()
+      return
+    }
+
     searchFieldRef.current?.reset()
   }
 
