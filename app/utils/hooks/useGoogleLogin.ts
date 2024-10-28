@@ -24,7 +24,7 @@ export const useGoogleLogin = () => {
       logger.log(result)
       callback(result.authentication.accessToken)
     } else if (result.type === 'error') {
-      Toast.show({ text1: translate('error.login'), text2: result.error?.message, type: 'error' })
+      Toast.show({ text1: translate('error.login')!, text2: result.error?.message, type: 'error' })
     }
   }
 

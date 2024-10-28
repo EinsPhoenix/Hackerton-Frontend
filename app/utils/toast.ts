@@ -9,7 +9,7 @@ export const showErrorToast = (
   headOptions?: TranslateOptions,
 ) => {
   const errorMsg = error && (error?.message || translate('error.unexpected'))
-  Toast.show({ text1: translate(messageHead, headOptions), text2: errorMsg, type: 'error' })
+  Toast.show({ text1: translate(messageHead, headOptions)!, text2: errorMsg, type: 'error' })
 }
 
 export const showSuccessToast = (
@@ -19,8 +19,8 @@ export const showSuccessToast = (
   successOptions?: TranslateOptions,
 ) => {
   Toast.show({
-    text1: translate(messageHead, headOptions),
-    text2: success && translate(success, successOptions),
+    text1: translate(messageHead, headOptions)!,
+    text2: success && translate(success, successOptions)!,
     type: 'success',
   })
 }

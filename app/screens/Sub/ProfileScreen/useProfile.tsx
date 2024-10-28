@@ -39,7 +39,7 @@ const useHome = () => {
 
   const handleDelete = async () => {
     if (isWeb) {
-      const password = window.prompt(translate('common.deleteAskAgain'))
+      const password = window.prompt(translate('common.deleteAskAgain')!)
       if (password) {
         await deleteAccount()
       }
@@ -47,8 +47,8 @@ const useHome = () => {
     }
 
     Alert.alert(
-      translate('common.deleteAcc'),
-      translate('common.deleteAskAgain'),
+      translate('common.deleteAcc')!,
+      translate('common.deleteAskAgain')!,
       [
         {
           style: 'cancel',

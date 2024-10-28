@@ -59,7 +59,7 @@ api.interceptors.response.use(
       logger.error('Network Error:', error.message)
     }
 
-    error.message = translate(('error.' + error.message) as TxKeyPath)
+    error.message = translate(('error.' + error.message) as TxKeyPath) || error.message
 
     return Promise.reject(error)
   },

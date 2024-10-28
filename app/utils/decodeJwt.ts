@@ -14,6 +14,6 @@ export const decodeJwt = (token: string): JwtClaims => {
   try {
     return jwtDecode<JwtClaims>(token)
   } catch (error: any) {
-    throw new Error(translate('error.jwt'))
+    throw new Error(translate('error.jwt')!)
   }
 }

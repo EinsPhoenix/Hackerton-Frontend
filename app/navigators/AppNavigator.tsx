@@ -54,7 +54,7 @@ const AppStack = observer(function AppStack() {
             <Stack.Screen
               name={ScreenTypes.WELCOME}
               component={Screens.WelcomeScreen}
-              options={{ title: translate('screens.home') }}
+              options={{ title: translate('screens.home')! }}
             />
           )}
         </>
@@ -63,12 +63,12 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen
             name={ScreenTypes.LOGIN}
             component={Screens.LoginScreen}
-            options={{ title: translate('screens.login') }}
+            options={{ title: translate('screens.login')! }}
           />
           <Stack.Screen
             name={ScreenTypes.SIGNUP}
             component={Screens.SignupScreen}
-            options={{ title: translate('screens.signup') }}
+            options={{ title: translate('screens.signup')! }}
           />
         </>
       )}

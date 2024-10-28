@@ -97,7 +97,7 @@ export function MainNavigator() {
             <AnimatedIcon {...colors} {...props} name="home" scale={scaleValues.Home} />
           ),
           tabBarLabel: translate('screens.home') as string,
-          title: translate('screens.home'),
+          title: translate('screens.home')!,
         }}
         listeners={{ tabPress: () => animateTabPress(scaleValues.Home) }}
       />
@@ -109,7 +109,7 @@ export function MainNavigator() {
             <AnimatedIcon {...colors} {...props} name="library" scale={scaleValues.Search} />
           ),
           tabBarLabel: translate('screens.library') as string,
-          title: translate('screens.library'),
+          title: translate('screens.library')!,
         }}
         listeners={{ tabPress: () => animateTabPress(scaleValues.Search) }}
       />
@@ -121,7 +121,7 @@ export function MainNavigator() {
             <AnimatedIcon {...colors} {...props} name="settings" scale={scaleValues.Add} />
           ),
           tabBarLabel: translate('screens.setting') as string,
-          title: translate('screens.setting'),
+          title: translate('screens.setting')!,
         }}
         listeners={{ tabPress: () => animateTabPress(scaleValues.Add) }}
       />
@@ -134,7 +134,7 @@ export function MainNavigator() {
               <AnimatedIcon {...colors} {...props} name="key" scale={scaleValues.Network} />
             ),
             tabBarLabel: translate('screens.networkCheck') as string,
-            title: translate('screens.networkCheck'),
+            title: translate('screens.networkCheck')!,
           }}
           listeners={{ tabPress: () => animateTabPress(scaleValues.Network) }}
         />

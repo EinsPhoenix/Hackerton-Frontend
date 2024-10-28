@@ -109,7 +109,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
 
   return (
     <View style={{ height, width }}>
-      <Radar data={radarData} options={radarOptions as any} width={width} height={height} />
+      <Radar data={radarData as any} options={radarOptions as any} width={width} height={height} />
     </View>
   )
 }

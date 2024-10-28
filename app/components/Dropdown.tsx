@@ -1,4 +1,4 @@
-import React, { useCallback, useImperativeHandle, useState } from 'react'
+import React, { useCallback, useEffect, useImperativeHandle, useState } from 'react'
 import {
   DimensionValue,
   ScrollView,
@@ -68,8 +68,13 @@ const DropdownComponent = (props: DropdownProps, ref?: React.Ref<CustomDropdownR
   // Determine the dropdown title based on single or multiple selections
   const displayedTitle =
     selectedItems.length > 0
-      ? selectedItems.map(key => items.find(item => item.key === key)?.value).join(', ')
+      ? !selectedItems.some(item => item === 'None') &&
+        selectedItems.map(key => items.find(item => item.key === key)?.value).join(', ')
       : title || items[0].value
+
+  useEffect(() => {
+    logger.log(items, selectedItems)
+  }, [selectedItems])
 
   // Filter items to avoid showing selected items
   const filteredItems = items.filter(item => !selectedItems.includes(item.key))

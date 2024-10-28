@@ -25,6 +25,7 @@ export const AddScreen: React.FC<SubStackScreenProps<ScreenTypes.ADD>> = observe
     handleGenerateContent,
     handleGenerateTags,
     handleImagePick,
+    image,
     initialValues,
     inputRefs,
     styles,
@@ -45,13 +46,14 @@ export const AddScreen: React.FC<SubStackScreenProps<ScreenTypes.ADD>> = observe
           <>
             <TouchableOpacity style={styles.space} onPress={handleImagePick}>
               <Image
-                source={Images.PLACEHOLDER_IMAGE}
+                source={image || Images.PLACEHOLDER_IMAGE}
                 containerStyle={styles.imgContainer}
                 style={styles.img}
                 contentFit="cover"
               />
             </TouchableOpacity>
             <Field
+              ref={inputRefs.current.titel}
               style={styles.space}
               variant="outlined"
               name="titel"

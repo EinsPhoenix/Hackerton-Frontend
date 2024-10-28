@@ -30,6 +30,6 @@ export default async function serviceAdapter<T, reqParams>(
       return Promise.reject(error)
     }
   } else {
-    return Promise.reject(new Error(translate('error.internetConnection')))
+    return Promise.reject(new Error(translate('error.internetConnection')!))
   }
 }

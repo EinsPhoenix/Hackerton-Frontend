@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { FormikProps } from 'formik'
 import * as yup from 'yup'
@@ -8,7 +8,6 @@ import { CustomTextInputRef } from 'app/components/Input/TextField.type'
 import { useAppContext } from 'app/context'
 import { translate } from 'app/i18n'
 import { ScreenTypes } from 'app/navigators'
-import { PreferenceValue } from 'app/screens/Entry/WelcomeScreen/PreferencesList'
 import { AddThreadParams } from 'app/services'
 import { logger, shortenText, showErrorToast, showSuccessToast, useHeader } from 'app/utils'
 
@@ -24,10 +23,12 @@ const useAdd = () => {
   } = useAppContext()
   const styles = addStyles(colors)
 
+  const [image, setImage] = useState<string | null>(null)
   const formikRef = useRef<FormikProps<AddThreadParams>>(null)
   const inputRefs = useRef({
     content: React.createRef<CustomTextInputRef>(),
     content_summary: React.createRef<CustomTextInputRef>(),
+    titel: React.createRef<CustomTextInputRef>(),
   })
   const dropdownRefs = useRef({
     main_tag: React.createRef<CustomDropdownRef>(),
@@ -53,11 +54,11 @@ const useAdd = () => {
   )
 
   const fieldValidation = yup.object().shape({
-    content: yup.string().trim().required(translate('validation.content.required')),
-    content_summary: yup.string().trim().required(translate('validation.contentSummary.required')),
+    content: yup.string().trim().required(translate('validation.content.required')!),
+    content_summary: yup.string().trim().required(translate('validation.contentSummary.required')!),
     main_tag: yup.string().required(),
     subtags: yup.array().min(1),
-    titel: yup.string().trim().required(translate('validation.titel.required')),
+    titel: yup.string().trim().required(translate('validation.titel.required')!),
   })
 
   const initialValues: AddThreadParams = {
@@ -70,10 +71,18 @@ const useAdd = () => {
   }
 
   const handleCreateThread = async (values: typeof initialValues) => {
+    logger.log(values)
     const success = await postThread(values)
 
     if (success) {
       formikRef.current?.resetForm()
+      inputRefs.current.content.current?.reset()
+      inputRefs.current.content_summary.current?.reset()
+      dropdownRefs.current.main_tag.current?.setSelectedItems([])
+      dropdownRefs.current.subtags.current?.setSelectedItems([])
+      inputRefs.current.titel.current?.reset()
+      setImage(null)
+
       showSuccessToast('success.threadAdd', undefined, {
         threadTitle: shortenText(values.titel, 20),
       })
@@ -81,13 +90,14 @@ const useAdd = () => {
   }
 
   const assignValue = (field: keyof typeof initialValues) => async (value: any) => {
-    if (formikRef.current?.values && !['file'].includes(field)) {
+    if (formikRef.current?.values) {
       await formikRef.current.setFieldValue(field, value, true)
     }
   }
 
   const handleImagePick = async () => {
     const uri = await pickImage()
+    setImage(uri)
     await assignValue('file')(uri)
   }
 
@@ -112,18 +122,24 @@ const useAdd = () => {
       return showErrorToast('error.ai.requiredForTags')
 
     const generatedTags = await getAITags(content, titel)
-    const mappedSubTags = generatedTags?.tags.SubTags.map(
-      (subtag: any, index) => subtag['SubTag' + (index + 1)] as PreferenceValue,
-    )
-
-    logger.log(generatedTags)
+    const mappedSubTags = generatedTags?.tags.SubTags.map((subtag: any, index) => {
+      return subtag['SubTag' + (index + 1)]
+    })
 
     dropdownRefs.current.main_tag.current?.setSelectedItems([
-      generatedTags?.tags.MainTag.MainTag as string,
-    ])
-    dropdownRefs.current.subtags.current?.setSelectedItems(mappedSubTags as string[])
-    await assignValue('main_tag')(generatedTags?.tags.MainTag.MainTag)
-    await assignValue('subtags')(mappedSubTags)
+      generatedTags?.tags.MainTag.MainTag,
+    ] as string[])
+    dropdownRefs.current.subtags.current?.setSelectedItems(mappedSubTags)
+    generatedTags?.tags.MainTag.MainTag !== 'None' &&
+      (await assignValue('main_tag')(generatedTags?.tags.MainTag.MainTag))
+    !mappedSubTags?.some(item => item === 'None') && (await assignValue('subtags')(mappedSubTags))
+
+    if (
+      generatedTags?.tags.MainTag.MainTag === 'None' ||
+      mappedSubTags?.some(item => item === 'None')
+    ) {
+      showErrorToast('error.ai.tags')
+    }
   }
 
   useEffect(() => {
@@ -139,6 +155,7 @@ const useAdd = () => {
     handleGenerateContent,
     handleGenerateTags,
     handleImagePick,
+    image,
     initialValues,
     inputRefs,
     styles,

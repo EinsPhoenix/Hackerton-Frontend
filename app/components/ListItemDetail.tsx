@@ -16,7 +16,7 @@ import { Icon, Image, Text } from 'app/components/index'
 import { navigate, ScreenTypes } from 'app/navigators'
 import { ThreadResult, VotingParams } from 'app/services'
 import { Palette, shadows, sizing } from 'app/theme'
-import { shortenText, showSuccessToast } from 'app/utils'
+import { logger, shortenText, showSuccessToast } from 'app/utils'
 
 interface ListItemProps {
   colors: Palette
@@ -89,6 +89,7 @@ export const ListItemDetailComponent = ({
   ).current
 
   const goThread = () => {
+    logger.log(item)
     if (!isSwiped) {
       navigate(ScreenTypes.SUB, { params: { item }, screen: ScreenTypes.THREAD })
     }

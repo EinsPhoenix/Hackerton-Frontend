@@ -30,7 +30,7 @@ export const SettingScreen: React.FC<MainTabScreenProps<ScreenTypes.SETTING>> = 
           <Text preset="h3" weight="semiBold" tx="screen.setting.theme" />
           <SettingArea
             preset="switch"
-            setting={translate('screen.setting.changeColorMode')}
+            setting={translate('screen.setting.changeColorMode')!}
             handleClick={handleSetAppTheme}
             active={() => appTheme === 'dark'}
           />

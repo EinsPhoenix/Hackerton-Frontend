@@ -24,17 +24,17 @@ const useLogin = () => {
     emailOrUsername: yup
       .string()
       .trim() // Remove whitespace from both ends
-      .required(translate('validation.emailOrUsername.required')), // Custom error message for required field
+      .required(translate('validation.emailOrUsername.required')!), // Custom error message for required field
 
     password: yup
       .string()
       .trim() // Remove whitespace from both ends
-      .required(translate('validation.password.required')) // Custom error message for required field
-      .min(8, translate('validation.password.minLength')) // Minimum length requirement
-      .matches(/[a-z]/, translate('validation.password.lowercase')) // At least one lowercase letter
-      .matches(/[A-Z]/, translate('validation.password.uppercase')) // At least one uppercase letter
-      .matches(/[0-9]/, translate('validation.password.number')) // At least one number
-      .matches(/[\W_]/, translate('validation.password.special')), // At least one special character
+      .required(translate('validation.password.required')!) // Custom error message for required field
+      .min(8, translate('validation.password.minLength')!) // Minimum length requirement
+      .matches(/[a-z]/, translate('validation.password.lowercase')!) // At least one lowercase letter
+      .matches(/[A-Z]/, translate('validation.password.uppercase')!) // At least one uppercase letter
+      .matches(/[0-9]/, translate('validation.password.number')!) // At least one number
+      .matches(/[\W_]/, translate('validation.password.special')!), // At least one special character
   })
 
   const initialValues = {
